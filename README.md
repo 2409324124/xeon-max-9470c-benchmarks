@@ -16,6 +16,7 @@ QuantLib result URL: https://openbenchmarking.org/result/2606027-NE-BENCHMARK83
 Linux Kernel Compile result URL: https://openbenchmarking.org/result/2606021-NE-PHORONIXT83  
 FFTW result URL: https://openbenchmarking.org/result/2606028-NE-PHORONIXT90  
 SVT-AV1 result URL: https://openbenchmarking.org/result/2606031-NE-AV19470C958  
+spaCy result URL: https://openbenchmarking.org/result/2606034-NE-SPACY947003  
 GPU: NVIDIA RTX 3090, driver 595.71.05
 
 ## Summary Table
@@ -59,6 +60,8 @@ Values are from local Phoronix Test Suite runs compared side-by-side with the mo
 | SVT-AV1 Preset 5 Beauty 4K 10-bit | 7.85 FPS | TR PRO 9995WX: 12.69 FPS, EPYC 9655P: 12.47 FPS, EPYC 9555P: 12.14 FPS, R9 9950X3D: 11.93 FPS, 2x Xeon 6780E: 5.36 FPS | 32nd percentile; heavy 10-bit encoding drops CPU performance |
 | SVT-AV1 Preset 8 Beauty 4K 10-bit | 10.43 FPS | R9 9950X3D2: 18.27 FPS, Core Ultra 7 270K+: 18.15 FPS, R9 9950X: 17.40 FPS, EPYC 9755: 15.14 FPS, TR 3990X: 10.16 FPS | 23rd percentile; low boost clock limits heavy 10-bit encoding |
 | SVT-AV1 Preset 13 Beauty 4K 10-bit | 12.11 FPS | R9 9950X3D2: 21.58 FPS, TR PRO 9975WX: 20.90 FPS, R9 9950X: 20.64 FPS, EPYC 9755: 17.69 FPS, TR 3990X: 11.72 FPS | 22nd percentile; low clock speed limits heavy 10-bit loops |
+| spaCy en_core_web_lg | 11,679 tok/s | Core Ultra 9 285K: 21,842 tok/s, Core i9-14900K: 21,437 tok/s, Ryzen 9 9950X: 13,163 tok/s, Ryzen 9 9950X3D: 13,150 tok/s, EPYC 9755: 9,931 tok/s | 48th percentile; CPU-bound NLP processing trails high-frequency desktop but beats EPYC 9755 |
+| spaCy en_core_web_trf | 3,975 tok/s | Core Ultra 9 285K: 4,571 tok/s, Ryzen 9 9950X3D: 4,121 tok/s, EPYC 9755: 5,781 tok/s, Ryzen 9 9950X: 3,601 tok/s, Core i9-14900K: 2,678 tok/s | 72nd percentile; strong transformer-based NLP throughput; beats Core i9-14900K and Ryzen 9 9950X |
 
 ## Local Results
 
@@ -524,6 +527,23 @@ Configuration:
 
 Interpretation: SVT-AV1 performance on the 9470C is moderate and varies by workload density. For lighter 1080p encoding (where core scaling works well and data fits easily in caches), the 9470C lands in the 61st-64th percentiles. However, for heavier 4K workloads and especially the demanding 10-bit Beauty test, performance drops to the 22nd-43rd percentiles. The processor's relatively low clock speed (3.5 GHz max boost) limits overall throughput in heavy CPU-bound encoding loops compared to high-frequency modern desktop and EPYC server CPUs.
 
+### spaCy 3.8.11
+
+Result URL: https://openbenchmarking.org/result/2606034-NE-SPACY947003
+
+Configuration:
+- Profile: `pts/spacy-1.1.0`
+- Models: `en_core_web_lg`, `en_core_web_trf`
+- Multi-Threaded / CPU Core Scaling: No (single-threaded)
+- Power state: `intel_pstate performance`, EPP `performance`
+
+| Model | 9470C | Percentile | Median |
+| --- | ---: | ---: | ---: |
+| en_core_web_lg | 11,679 tokens/s | 48th | 11,907 tokens/s |
+| en_core_web_trf | 3,975 tokens/s | 72nd | 2,678 tokens/s |
+
+Interpretation: spaCy NLP processing on the 9470C shows different characteristics depending on the model pipeline. For the standard statistical pipeline (`en_core_web_lg`), which is purely CPU/cache bound and single-threaded, the 9470C trails high-frequency desktop chips (which boost above 5.5 GHz) but manages to beat the EPYC 9755 (9,931 tokens/s) due to the Sapphire Rapids IPC and core architecture. For the transformer-based pipeline (`en_core_web_trf`), the 9470C excels, achieving the 72nd percentile, beating the Core i9-14900K (2,678 tokens/s) and Ryzen 9 9950X (3,601 tokens/s) by a clear margin, while trailing the higher-clocked Core Ultra 9 285K and server-class EPYC 9755.
+
 ## Notable Comparison Points
 
 These values appeared in the OpenBenchmarking comparison output captured during the runs.
@@ -667,13 +687,37 @@ These values appeared in the OpenBenchmarking comparison output captured during 
 | Preset 8 - Beauty 4K 10-bit | 10.43 | 15.14 (1x) | n/a | 18.27 (9950X3D2) | 17.40 | 18.15 |
 | Preset 13 - Beauty 4K 10-bit | 12.11 | 17.69 (1x) | n/a | 21.58 (9950X3D2) | 20.64 | 9.79 (Ultra X7) |
 
+### spaCy
+
+#### en_core_web_lg (tokens/sec, More Is Better)
+
+| Processor | Result |
+| --- | ---: |
+| Core Ultra 9 285K | 21,842 |
+| Core i9-14900K | 21,437 |
+| Ryzen 9 9950X | 13,163 |
+| Ryzen 9 9950X3D | 13,150 |
+| **Xeon Max 9470C (Ours)** | **11,679** |
+| EPYC 9755 | 9,931 |
+
+#### en_core_web_trf (tokens/sec, More Is Better)
+
+| Processor | Result |
+| --- | ---: |
+| EPYC 9755 | 5,781 |
+| Core Ultra 9 285K | 4,571 |
+| Ryzen 9 9950X3D | 4,121 |
+| **Xeon Max 9470C (Ours)** | **3,975** |
+| Ryzen 9 9950X | 3,601 |
+| Core i9-14900K | 2,678 |
+
 ## Overall Read
 
 The Xeon Max 9470C is a specialized platform:
 
 - Excellent: HBM bandwidth, oneDNN BF16, oneDNN INT8, PyTorch CPU (all OpenBenchmarking highs, 2.0-2.5x desktop), TensorFlow CPU ResNet-50.
-- Good/mixed: OpenVINO small INT8 inference, y-cruncher (77th percentile, beats 64C TR), FFTW Float+SSE 1D 4096 (88th percentile).
-- Ordinary for its class: 7-Zip, llama.cpp CPU BLAS, OpenVINO complex-model throughput, CP2K, Linux kernel compile, QuantLib, SVT-AV1 (22nd-43rd percentile on 4K/Beauty, 61st-64th percentile on 1080p).
+- Good/mixed: OpenVINO small INT8 inference, y-cruncher (77th percentile, beats 64C TR), FFTW Float+SSE 1D 4096 (88th percentile), spaCy NLP (en_core_web_trf at 72nd percentile).
+- Ordinary for its class: 7-Zip, llama.cpp CPU BLAS, OpenVINO complex-model throughput, CP2K, Linux kernel compile, QuantLib, SVT-AV1 (22nd-43rd percentile on 4K/Beauty, 61st-64th percentile on 1080p), spaCy en_core_web_lg (48th percentile).
 - Not meaningful: NumPy (forced single-threaded).
 
 Best next benchmarks to characterize the platform:
@@ -697,3 +741,4 @@ Additional benchmark candidates:
 | 7 | `pts/pytorch` or `pts/intel-tensorflow` | Completed; PyTorch CPU all OpenBenchmarking highs, 2.0-2.5x best desktop CPUs |
 | 8 | `pts/vllm` | GPU vLLM benchmark for RTX 3090; use separately from CPU vLLM results |
 | 9 | pts/svt-av1 | Completed; SVT-AV1 2.17.0 video encoding. 22nd-43rd percentile on 4K/Beauty, 61st-64th percentile on 1080p |
+| 10 | `pts/spacy` | Completed; spaCy NLP library benchmark (en_core_web_lg and en_core_web_trf models) |
