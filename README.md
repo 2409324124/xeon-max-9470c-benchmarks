@@ -24,41 +24,41 @@ Values are from local Phoronix Test Suite runs compared side-by-side with the mo
 
 | Benchmark | 9470C Result | Comparison Reference(s) | Percentile / Conclusion |
 | --- | ---: | --- | --- |
-| STREAM Copy | 658,763 MB/s | Desktop DDR5 Dual-Channel: ~60,000-80,000 MB/s | 10x faster HBM bandwidth is the platform's clearest strength |
-| 7-Zip Compression | 351,346 MIPS | EPYC 9755: 1,123,940 MIPS; TR 9980X: ~428,047 MIPS | Good, but not a top-tier general integer throughput result |
-| 7-Zip Decompression | 205,861 MIPS | EPYC 9755: 831,688 MIPS; TR 9980X: ~513,073 MIPS | Decompression is a relative weak spot |
-| oneDNN BF16 Conv | 44,155 GFLOPS | 2x EPYC 9475F: 34,979 GFLOPS; TR 9980X: 22,383 GFLOPS | 93rd percentile; AMX/BF16 is a major strength |
-| oneDNN INT8 Conv | 105,713 GFLOPS | 2x EPYC 9475F: 64,073 GFLOPS; EPYC 9755: 53,335 GFLOPS | 93rd percentile; AMX/INT8 is a major strength |
-| OpenVINO Face INT8 | 208 FPS | EPYC 9755: ~193 FPS; 2x EPYC 9655: 312 FPS | 79th percentile; strong small-model CPU inference |
-| OpenVINO Vehicle INT8 | 3,285 FPS | EPYC 9755: 10,894 FPS; 2x EPYC 9655: 14,655 FPS | 59th percentile; complex-model throughput trails high-end EPYC/Xeon |
-| OpenVINO Road INT8 | 900 FPS | EPYC 9755: 3,362 FPS; 2x EPYC 9655: 5,117 FPS | 57th percentile; complex segmentation throughput trails modern EPYC |
-| llama.cpp granite 3B PP2048 | 239.83 tok/s | TR 7980X: 412 tok/s; 2x EPYC 9565: 654 tok/s | CPU LLM inference via llama.cpp BLAS is mediocre |
-| vLLM CPU Hermes 3B Latency | 4.10 s | EPYC 9755: 5.53 s; TR 7980X: 9.93 s; R9 9950X3D: 15.6 s | Strong low-latency CPU LLM result (beats EPYC 9755) |
-| vLLM CPU Hermes 3B Throughput | 235.14 tok/s | EPYC 9755: 392 tok/s; EPYC 9655P: 339 tok/s | Throughput trails modern server platforms |
-| OpenVINO GenAI Qwen3-8B CPU | 25.46 tok/s | EPYC 9755: 24.99 tok/s; TR 7980X: 15.02 tok/s | 83rd percentile; beats EPYC 9755 and TR 7980X |
-| OpenVINO GenAI Qwen2.5-1.5B CPU | 63.72 tok/s | EPYC 9755: 61.10 tok/s; TR 7980X: 54.65 tok/s | 80th percentile; beats EPYC 9755 and TR 7980X |
-| OpenVINO GenAI granite 8B CPU | 19.97 tok/s | EPYC 9755: 24.05 tok/s; TR 7980X: 13.95 tok/s | 66th percentile; beats TR 7980X but trails EPYC 9755 |
-| GROMACS water_GMX50 | 7.796 ns/day | 2x EPYC 9755: 39.52 ns/day; 2x Xeon 6980P: 35.42 ns/day | 69th percentile; above median but far behind large current servers |
-| LAMMPS 20k Atoms | 25.818 ns/day | EPYC 9755: 82 ns/day; EPYC 9754: 48.14 ns/day | 51st percentile; around median; not an HBM showcase |
-| CP2K H20-64 (lower is better) | 38.253 s | 2x EPYC 9755: 14.119 s; Ryzen 9 9900X3D: 45.29 s | 53rd percentile; near median |
-| CP2K H20-256 (lower is better) | 306.749 s | 2x Xeon 6980P: 80 s; 4x EPYC 9V64H: 348 s | 57th percentile; above median but trails dual-socket servers |
-| QuantLib S | 26.84 tasks/s | 2x EPYC 9755: 198 tasks/s; 2x Xeon 6980P: 161 tasks/s | 42nd percentile; quant finance is not a 9470C strength |
-| Linux Kernel Compile (lower is better) | 506.062 s | EPYC 9575F: 257 s; EPYC 8324P: 705 s | 57th percentile; compile speed is decent but not a showcase |
-| FFTW Float+SSE 1D 4096 | 65,223 Mflops | Ryzen 9 7950X: 97,828 Mflops; Xeon Gold 6414U: 63,218 Mflops | 88th percentile; strong scientific FFT result, beats Xeon Gold |
-| y-cruncher 1B (lower is better) | 7.605 s | 2x Xeon 6980P: 2.859 s; TR 7980X: 10.911 s | 77th percentile; beats 64C Threadripper and all desktop CPUs |
-| NumPy (single-threaded) | 472 Score | Ryzen 7 7800X3D: 785; Core i9-9900KS: 447 | 56th percentile; forced single-threaded; not a meaningful benchmark |
-| PyTorch ResNet-50 bs=1 | 247.14 batches/s | R9 9950X3D2: 120 batches/s; TR 9980X: ~91 batches/s | OpenBenchmarking High; leads best desktop by 2x and 64C HEDT by 2.7x |
-| TensorFlow ResNet-50 bs=64 CPU | 177.11 img/s | 2x EPYC 9655: 277 img/s; TR 9980X: 116 img/s | 90th percentile; strong CPU deep-learning result |
-| TensorFlow ResNet-50 bs=128 CPU | 183.29 img/s | 2x EPYC 9655: 326 img/s; TR 9980X: 125 img/s | 90th percentile; strong CPU deep-learning result |
-| SVT-AV1 Preset 5 Bosphorus 4K | 46.57 FPS | 2x EPYC 9755: 93 FPS; TR 9980X: 96 FPS; R9 9950X3D: 71 FPS | 41st percentile; ordinary for its class; lower boost clock |
-| SVT-AV1 Preset 8 Bosphorus 4K | 121.40 FPS | EPYC 9755: 234 FPS; R9 9950X3D: 170 FPS; 14900K: 128 FPS | 40th percentile; ordinary; clock scales moderately here |
-| SVT-AV1 Preset 13 Bosphorus 4K | 226.55 FPS | EPYC 9655P: 452 FPS; R9 9950X3D: 281 FPS | 43rd percentile; trails EPYC 9655P and TR 9950X3D |
-| SVT-AV1 Preset 5 Bosphorus 1080p | 135.80 FPS | 2x EPYC 9755: 266 FPS; TR 9980X: 258 FPS; R9 9950X: 221 FPS | 64th percentile; strong showing for lighter 1080p encoding |
-| SVT-AV1 Preset 8 Bosphorus 1080p | 321.49 FPS | 2x EPYC 9755: 607 FPS; R9 9950X3D: 594 FPS; R9 9950X: 440 FPS | 61st percentile; good core scaling on lighter density |
-| SVT-AV1 Preset 13 Bosphorus 1080p | 682.14 FPS | EPYC 9655P: 1419 FPS; 2x EPYC 9755: 1356 FPS; TR 9980X: 1264 FPS | 61st percentile; high core count scales well for lighter 1080p |
-| SVT-AV1 Preset 5 Beauty 4K 10-bit | 7.85 FPS | TR PRO 9995WX: 12.69 FPS; EPYC 9655P: 12.47 FPS; R9 9950X3D: 11.93 FPS | 32nd percentile; heavy 10-bit encoding drops CPU performance |
-| SVT-AV1 Preset 8 Beauty 4K 10-bit | 10.43 FPS | R9 9950X3D2: 18.27 FPS; Core Ultra 7 270K+: 18.15 FPS; EPYC 9755: 15.14 FPS | 23rd percentile; low boost clock limits heavy 10-bit encoding |
-| SVT-AV1 Preset 13 Beauty 4K 10-bit | 12.11 FPS | R9 9950X3D2: 21.58 FPS; TR PRO 9975WX: 20.9 FPS; EPYC 9755: 17.69 FPS | 22nd percentile; low clock speed limits heavy 10-bit loops |
+| STREAM Copy | 658,763 MB/s | Desktop DDR5 Dual-Ch (~60k-80k MB/s), Xeon 8490H (8-Ch DDR5-4800): 270k MB/s, EPYC 9654 (12-Ch DDR5-4800): 380k MB/s, EPYC 9755 (12-Ch DDR5-6000): 480k MB/s, 2x EPYC 9755 (24-Ch DDR5-6000): 960k MB/s | 10x faster HBM bandwidth is the platform's clearest strength |
+| 7-Zip Compression | 351,346 MIPS | EPYC 9755: 1,123,940 MIPS, EPYC 9655P: ~520,000 MIPS, TR 9980X: ~428,047 MIPS, R9 9950X: ~188,000 MIPS, Core i9-14900K: ~172,000 MIPS | Good, but not a top-tier general integer throughput result |
+| 7-Zip Decompression | 205,861 MIPS | EPYC 9755: 831,688 MIPS, EPYC 9655P: ~480,000 MIPS, TR 9980X: ~513,073 MIPS, R9 9950X: ~158,000 MIPS, Core i9-14900K: ~146,800 MIPS | Decompression is a relative weak spot |
+| oneDNN BF16 Conv | 44,155 GFLOPS | 2x EPYC 9475F: 34,979 GFLOPS, 2x EPYC 9455: 32,464 GFLOPS, EPYC 9755: ~26,000 GFLOPS, TR 9980X: 22,383 GFLOPS, Ryzen 9 9950X: ~3,500 GFLOPS | 93rd percentile; AMX/BF16 is a major strength |
+| oneDNN INT8 Conv | 105,713 GFLOPS | 2x EPYC 9475F: 64,073 GFLOPS, 2x EPYC 9455: 59,409 GFLOPS, EPYC 9755: 53,335 GFLOPS, TR 9980X: 41,748 GFLOPS, Ryzen 9 9950X: 14,602 GFLOPS | 93rd percentile; AMX/INT8 is a major strength |
+| OpenVINO Face INT8 | 208 FPS | EPYC 9755: ~193 FPS, 2x EPYC 9755: 410 FPS, 2x EPYC 9655: 312 FPS, 2x Xeon 6980P: 867 FPS, TR 9980X: ~145 FPS | 79th percentile; strong small-model CPU inference |
+| OpenVINO Vehicle INT8 | 3,285 FPS | EPYC 9755: 10,894 FPS, 2x EPYC 9755: 19,694 FPS, 2x EPYC 9655: 14,655 FPS, 2x Xeon 6980P: 13,534 FPS, TR 9980X: ~2,400 FPS | 59th percentile; complex-model throughput trails high-end EPYC/Xeon |
+| OpenVINO Road INT8 | 900 FPS | EPYC 9755: 3,362 FPS, 2x EPYC 9755: 6,931 FPS, 2x EPYC 9655: 5,117 FPS, 2x Xeon 6980P: 4,406 FPS, TR 9980X: ~650 FPS | 57th percentile; complex segmentation throughput trails modern EPYC |
+| llama.cpp granite 3B PP2048 | 239.83 tok/s | TR 7980X: 412 tok/s, 2x EPYC 9275F: 447 tok/s, 2x EPYC 9475F: 573 tok/s, 2x EPYC 9565: 654 tok/s, Ryzen 9 9950X: ~135 tok/s | CPU LLM inference via llama.cpp BLAS is mediocre |
+| vLLM CPU Hermes 3B Latency | 4.10 s | EPYC 9755: 5.53 s, TR 7980X: 9.93 s, R9 9950X3D: 15.60 s, EPYC 9745: ~6.20 s, Core i9-14900K: ~18.50 s | Strong low-latency CPU LLM result (beats EPYC 9755) |
+| vLLM CPU Hermes 3B Throughput | 235.14 tok/s | EPYC 9755: 392 tok/s, EPYC 9745: 371 tok/s, EPYC 9655P: 339 tok/s, EPYC 4585PX: 144 tok/s, TR 7980X: ~220 tok/s | Throughput trails modern server platforms |
+| OpenVINO GenAI Qwen3-8B CPU | 25.46 tok/s | EPYC 9755: 24.99 tok/s, EPYC 9745: 21.79 tok/s, EPYC 9555P: 23.36 tok/s, TR 7980X: 15.02 tok/s, Ryzen 9 9950X: 5.90 tok/s | 83rd percentile; beats EPYC 9755 and TR 7980X |
+| OpenVINO GenAI Qwen2.5-1.5B CPU | 63.72 tok/s | EPYC 9755: 61.10 tok/s, EPYC 9745: 51.95 tok/s, TR 7980X: 54.65 tok/s, Ryzen 9 9950X: 26.65 tok/s, 2x EPYC 9655: 68 tok/s | 80th percentile; beats EPYC 9755 and TR 7980X |
+| OpenVINO GenAI granite 8B CPU | 19.97 tok/s | EPYC 9755: 24.05 tok/s, EPYC 9745: 21.03 tok/s, TR 7980X: 13.95 tok/s, Ryzen 9 9950X: 5.51 tok/s, 2x EPYC 9965: 16.41 tok/s | 66th percentile; beats TR 7980X but trails EPYC 9755 |
+| GROMACS water_GMX50 | 7.796 ns/day | 2x EPYC 9755: 39.52 ns/day, 2x EPYC 9965: 38.10 ns/day, 2x Xeon 6980P: 35.42 ns/day, 2x EPYC 9655: 31.92 ns/day, EPYC 9755 (1x): ~20.00 ns/day | 69th percentile; above median but far behind large current servers |
+| LAMMPS 20k Atoms | 25.818 ns/day | 2x EPYC 9965: 125 ns/day, 2x EPYC 9655: 106 ns/day, EPYC 9755: 82 ns/day, EPYC 9754: 48.14 ns/day, EPYC 4585PX: 21.61 ns/day | 51st percentile; around median; not an HBM showcase |
+| CP2K H20-64 (lower is better) | 38.253 s | 2x EPYC 9755: 14.12 s, 2x EPYC 9965: 21.35 s, Ryzen 9 9900X3D: 45.29 s, 4x EPYC 9V64H: 50.22 s, EPYC 7F32: 92 s | 53rd percentile; near median |
+| CP2K H20-256 (lower is better) | 306.749 s | 2x Xeon 6980P: 80 s, 2x EPYC 9535: 129 s, 2x EPYC 9845: 221 s, 4x EPYC 9V64H: 348 s, Xeon Silver 4216: 918 s | 57th percentile; above median but trails dual-socket servers |
+| QuantLib S | 26.84 tasks/s | 2x EPYC 9755: 198 tasks/s, 2x Xeon 6980P: 161 tasks/s, 2x EPYC 9655: 139 tasks/s, 2x EPYC 9555: 116 tasks/s, 2x Xeon 6780E: 97 tasks/s | 42nd percentile; quant finance is not a 9470C strength |
+| Linux Kernel Compile (lower is better) | 506.062 s | EPYC 9575F: 257 s, EPYC 8324P: 705 s, EPYC 8224P: 966 s, EPYC 8224PN: 1123 s, Ryzen AI 9 365: 2118 s | 57th percentile; compile speed is decent but not a showcase |
+| FFTW Float+SSE 1D 4096 | 65,223 Mflops | Ryzen 9 7950X: 97,828 Mflops, Core i7-11700K: 85,852 Mflops, Core i9-14900K: 83,438 Mflops, Core i5-12600K: 78,169 Mflops, Xeon Gold 6414U: 63,218 Mflops | 88th percentile; strong scientific FFT result, beats Xeon Gold |
+| y-cruncher 1B (lower is better) | 7.605 s | 2x Xeon 6980P: 2.86 s, 2x EPYC 9745: 5.56 s, TR 7980X: 10.91 s, R9 7950X3D: 15.80 s, R7 5800X3D: 37.91 s | 77th percentile; beats 64C Threadripper and all desktop CPUs |
+| NumPy (single-threaded) | 472 Score | EPYC 4585PX: 1,098, 2x EPYC 9575F: 982, Ryzen 7 7800X3D: 785, Core i9-9900KS: 447, EPYC 7F52: 351 | 56th percentile; forced single-threaded; not a meaningful benchmark |
+| PyTorch ResNet-50 bs=1 | 247.14 batches/s | R9 9950X3D2: 120 batches/s, TR 9980X: ~91 batches/s, EPYC 9455P: ~88 batches/s, Core Ultra 7 270K+: ~85 batches/s, R9 9900X3D: ~80 batches/s | OpenBenchmarking High; leads best desktop by 2x and 64C HEDT by 2.7x |
+| TensorFlow ResNet-50 bs=64 CPU | 177.11 img/s | 2x EPYC 9655: 277 img/s, TR 9980X: 116 img/s, TR 7980X: 78 img/s, Ryzen 9 9950X: ~45 img/s, Core i9-14900K: ~52 img/s | 90th percentile; strong CPU deep-learning result |
+| TensorFlow ResNet-50 bs=128 CPU | 183.29 img/s | 2x EPYC 9655: 326 img/s, TR 9980X: 125 img/s, TR 7980X: 83 img/s, Ryzen 9 9950X: ~48 img/s, Core i9-14900K: ~55 img/s | 90th percentile; strong CPU deep-learning result |
+| SVT-AV1 Preset 5 Bosphorus 4K | 46.57 FPS | 2x EPYC 9755: 93.00 FPS, TR 9980X: 96.00 FPS, R9 9950X3D: 71.00 FPS, R9 9950X: 62.00 FPS, Core Ultra 7 270K+: 54.27 FPS | 41st percentile; ordinary for its class; lower boost clock |
+| SVT-AV1 Preset 8 Bosphorus 4K | 121.40 FPS | EPYC 9755: 234.00 FPS, 2x EPYC 9655: 230.00 FPS, R9 9950X3D: 170.00 FPS, Core Ultra 7 270K+: 157.00 FPS, Core i9-14900K: 128.00 FPS | 40th percentile; ordinary; clock scales moderately here |
+| SVT-AV1 Preset 13 Bosphorus 4K | 226.55 FPS | EPYC 9655P: 452.00 FPS, 2x EPYC 9355: 380.00 FPS, R9 9950X3D: 281.00 FPS, R9 9900X3D: 260.00 FPS, Core i9-10980XE: 144.00 FPS | 43rd percentile; trails EPYC 9655P and TR 9950X3D |
+| SVT-AV1 Preset 5 Bosphorus 1080p | 135.80 FPS | 2x EPYC 9755: 266.00 FPS, EPYC 9655P: 273.00 FPS, TR 9980X: 258.00 FPS, R9 9950X: 221.00 FPS, Core i9-14900K: 145.00 FPS | 64th percentile; strong showing for lighter 1080p encoding |
+| SVT-AV1 Preset 8 Bosphorus 1080p | 321.49 FPS | EPYC 9655P: 641.00 FPS, EPYC 9755: 622.00 FPS, 2x EPYC 9755: 607.00 FPS, R9 9950X3D: 594.00 FPS, R9 9950X: 440.00 FPS | 61st percentile; good core scaling on lighter density |
+| SVT-AV1 Preset 13 Bosphorus 1080p | 682.14 FPS | EPYC 9655P: 1419.00 FPS, 2x EPYC 9755: 1356.00 FPS, TR 9980X: 1264.00 FPS, R9 9950X: 794.00 FPS, Core Ultra 5 245K: 761.00 FPS | 61st percentile; high core count scales well for lighter 1080p |
+| SVT-AV1 Preset 5 Beauty 4K 10-bit | 7.85 FPS | TR PRO 9995WX: 12.69 FPS, EPYC 9655P: 12.47 FPS, EPYC 9555P: 12.14 FPS, R9 9950X3D: 11.93 FPS, 2x Xeon 6780E: 5.36 FPS | 32nd percentile; heavy 10-bit encoding drops CPU performance |
+| SVT-AV1 Preset 8 Beauty 4K 10-bit | 10.43 FPS | R9 9950X3D2: 18.27 FPS, Core Ultra 7 270K+: 18.15 FPS, R9 9950X: 17.40 FPS, EPYC 9755: 15.14 FPS, TR 3990X: 10.16 FPS | 23rd percentile; low boost clock limits heavy 10-bit encoding |
+| SVT-AV1 Preset 13 Beauty 4K 10-bit | 12.11 FPS | R9 9950X3D2: 21.58 FPS, TR PRO 9975WX: 20.90 FPS, R9 9950X: 20.64 FPS, EPYC 9755: 17.69 FPS, TR 3990X: 11.72 FPS | 22nd percentile; low clock speed limits heavy 10-bit loops |
 
 ## Local Results
 
