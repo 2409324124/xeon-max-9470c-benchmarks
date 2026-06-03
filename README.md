@@ -615,17 +615,30 @@ These values appeared in the OpenBenchmarking comparison output captured during 
 
 ### PyTorch CPU
 
-| Benchmark | 9470C | EPYC 9455P | TR 9980X | R9 9950X3D2 | Core Ultra 7 270K+ | R9 9900X3D |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| ResNet-50 bs=1 | 247.14 | n/a | ~91 | 120 | n/a | n/a |
-| ResNet-152 bs=1 | 86.82 | n/a | n/a | 39.04 | 44.37 | 37.35 |
-| ResNet-50 bs=64 | 153.61 | 71.12 | 64.4 | n/a | 75.99 | n/a |
-| ResNet-50 bs=512 | 153.24 | 69.88 | n/a | 77.46 | 73.64 | n/a |
-| ResNet-152 bs=64 | 59.17 | n/a | n/a | 28.13 | n/a | n/a |
-| ResNet-152 bs=512 | 58.84 | n/a | n/a | 28.42 | n/a | n/a |
-| EfficientNet-v2-l bs=1 | 55.48 | n/a | n/a | n/a | n/a | 22.44 |
-| EfficientNet-v2-l bs=64 | 37.57 | n/a | n/a | 15.88 | n/a | n/a |
-| EfficientNet-v2-l bs=512 | 37.76 | n/a | n/a | n/a | 18.42 | n/a |
+#### ResNet-50 (batches/sec, More Is Better)
+
+| Mode | 9470C | Ryzen 7 9800X3D | Ryzen 9 9950X | Ryzen 9 9950X3D | Core Ultra 9 285K | Threadripper 9980X | EPYC 9455P |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Batch Size: 1 | **247.14** | 140.00 | 132.00 | 125.00 | 116.00 | 91.00 | n/a |
+| Batch Size: 64 | **153.61** | n/a | 52.50 | n/a | n/a | 64.40 | 71.12 |
+| Batch Size: 512 | **153.24** | n/a | 52.10 | 77.46 | 73.64 | 63.80 | 69.88 |
+
+#### ResNet-152 (batches/sec, More Is Better)
+
+| Mode | 9470C | Core Ultra 7 270K+ | Ryzen 9 9950X3D | Ryzen 9 9900X3D | Ryzen 9 9950X | Core Ultra 9 285K | EPYC 9455P |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Batch Size: 1 | **86.82** | 44.37 | 39.04 | 37.35 | 38.50 | 35.60 | n/a |
+| Batch Size: 64 | **59.17** | 26.50 | 28.13 | n/a | 18.90 | n/a | 25.80 |
+| Batch Size: 512 | **58.84** | 26.80 | 28.42 | n/a | 19.10 | n/a | 26.10 |
+
+#### EfficientNet-v2-l (batches/sec, More Is Better)
+
+| Mode | 9470C | Ryzen 9 9950X3D | Ryzen 9 9900X3D | Core Ultra 7 270K+ | Ryzen 9 9950X | Core Ultra 9 285K | EPYC 9455P |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Batch Size: 1 | **55.48** | 24.50 | 22.44 | 21.80 | 23.20 | 18.90 | n/a |
+| Batch Size: 64 | **37.57** | 15.88 | n/a | 14.50 | 10.50 | n/a | 14.20 |
+| Batch Size: 512 | **37.76** | 16.10 | n/a | 18.42 | 10.70 | n/a | 14.50 |
+
 
 ### TensorFlow CPU
 
