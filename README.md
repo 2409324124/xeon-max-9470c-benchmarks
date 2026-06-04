@@ -10,6 +10,12 @@ Interactive benchmark report for an Intel Xeon Max 9470C system with 52 cores / 
 
 ## Interactive Report
 
+Online report, once GitHub Pages is enabled:
+
+```text
+https://2409324124.github.io/xeon-max-9470c-benchmarks/
+```
+
 Open the generated report locally:
 
 ```bash
