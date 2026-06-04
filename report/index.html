@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xeon Max 9470C Benchmark Charts</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #1f2937;
+      background: #f4f6f9;
+    }
+    body {
+      margin: 0;
+    }
+    header {
+      padding: 34px clamp(18px, 4vw, 56px) 18px;
+      background: #ffffff;
+      border-bottom: 1px solid #d9e0ea;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px clamp(14px, 3vw, 32px) 56px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0;
+      color: #596579;
+      line-height: 1.55;
+    }
+    .chart {
+      margin: 0 0 26px;
+      padding: 22px;
+      background: #ffffff;
+      border: 1px solid #dce3ee;
+      border-radius: 8px;
+      overflow: auto;
+    }
+    img {
+      display: block;
+      max-width: none;
+      margin-top: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      background: #fbfcfe;
+    }
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(14px, 3vw, 32px) 40px;
+      color: #596579;
+    }
+    a {
+      color: #295f98;
+    }
+    .abstract {
+      margin: 0 0 26px;
+      padding: 24px;
+      background: #ffffff;
+      border: 1px solid #dce3ee;
+      border-radius: 8px;
+    }
+    .abstract > p {
+      max-width: 1000px;
+      color: #3f4d63;
+    }
+    .abstract-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .abstract-group {
+      padding: 16px;
+      border: 1px solid #e0e6ef;
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+    .abstract-group h3, footer h3 {
+      margin: 0 0 10px;
+      color: #1f2937;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+    .abstract-group ul, footer ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #4f5e73;
+      line-height: 1.55;
+    }
+    .source-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+    .source-grid section {
+      padding: 18px;
+      border: 1px solid #dce3ee;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .chart-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .stream-tabs {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 3px;
+      border: 1px solid #cfd8e6;
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+    .stream-tabs button {
+      min-width: 72px;
+      height: 34px;
+      border: 0;
+      border-radius: 6px;
+      padding: 0 12px;
+      background: transparent;
+      color: #39465a;
+      font: 700 13px Inter, ui-sans-serif, system-ui, sans-serif;
+      cursor: pointer;
+    }
+    .stream-tabs button.is-active {
+      background: #1f2937;
+      color: #ffffff;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.16);
+    }
+    .stream-panel {
+      display: grid;
+      grid-template-columns: minmax(620px, 1fr) 260px;
+      gap: 26px;
+      margin-top: 22px;
+      min-width: 980px;
+    }
+    .stream-plot {
+      padding: 18px 18px 16px;
+      border: 1px solid #d8e0eb;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .stream-axis {
+      position: relative;
+      height: 24px;
+      margin: 0 148px 8px 272px;
+      border-bottom: 1px solid #b7c3d4;
+    }
+    .stream-axis span {
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+      color: #60708a;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .stream-bars {
+      display: grid;
+      gap: 12px;
+    }
+    .stream-row {
+      display: grid;
+      grid-template-columns: 260px minmax(320px, 1fr) 138px;
+      align-items: center;
+      gap: 12px;
+    }
+    .stream-name {
+      color: #263244;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: right;
+    }
+    .stream-track {
+      height: 26px;
+      border-left: 1px solid #8b9bb0;
+      background: repeating-linear-gradient(to right, #eef2f7 0, #eef2f7 1px, transparent 1px, transparent 25%);
+    }
+    .stream-fill {
+      height: 100%;
+      border-radius: 0 4px 4px 0;
+      transition: width 180ms ease;
+    }
+    .stream-row.is-own .stream-fill {
+      outline: 2px solid #1f2937;
+      outline-offset: 1px;
+    }
+    .stream-value {
+      color: #1f2937;
+      font-weight: 800;
+      font-size: 13px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .stream-meta {
+      padding: 18px;
+      border: 1px solid #d8e0eb;
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+    .stream-meta-label {
+      color: #6b778c;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .stream-meta-title {
+      margin-top: 8px;
+      color: #1f2937;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .stream-meta code {
+      display: block;
+      margin-top: 12px;
+      padding: 9px 10px;
+      border-radius: 6px;
+      background: #eef2f7;
+      color: #1f2937;
+      font-size: 13px;
+      white-space: normal;
+    }
+    .stream-meta p {
+      margin-top: 14px;
+      font-size: 13px;
+    }
+    .paged-plot-wrap {
+      margin-top: 22px;
+      padding: 18px;
+      min-width: 980px;
+      border: 1px solid #d8e0eb;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .paged-title {
+      color: #1f2937;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .paged-subtitle {
+      margin-top: 5px;
+      color: #60708a;
+      font-size: 13px;
+    }
+    .paged-plot {
+      margin-top: 16px;
+      overflow-x: auto;
+    }
+    .paged-plot svg {
+      display: block;
+      width: 100%;
+      min-width: 980px;
+      height: auto;
+    }
+    .paged-axis {
+      stroke: #9aa8ba;
+      stroke-width: 1;
+    }
+    .paged-grid {
+      stroke: #e1e7ef;
+      stroke-width: 1;
+    }
+    .paged-tick, .paged-unit {
+      fill: #60708a;
+      font: 12px Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    .paged-value {
+      fill: #1f2937;
+      font: 800 12px Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    .paged-xlabel {
+      fill: #364152;
+      font: 11px Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    .paged-note {
+      margin-top: 8px;
+      color: #60708a;
+      font-size: 12px;
+    }
+    .matrix-controls {
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+    }
+    @media (max-width: 760px) {
+      .chart-head {
+        display: block;
+      }
+      .stream-tabs {
+        margin-top: 14px;
+      }
+      .stream-panel {
+        min-width: 840px;
+        grid-template-columns: 1fr;
+      }
+      .abstract-grid, .source-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Xeon Max 9470C Benchmark Charts</h1>
+    <p>Intel Xeon Max 9470C, 52C/104T, 64GB HBM2-3200. Data date: 2026-05-30; last updated: 2026-06-03.</p>
+  </header>
+  <main>
+
+      <section class="abstract">
+        <h2>Abstract</h2>
+        <p>The Xeon Max 9470C is a specialized CPU platform: its clearest wins come from HBM bandwidth and Intel-optimized AI kernels, while general integer, compile, video encoding, and several HPC workloads are more mixed. The strongest application-level results are PyTorch CPU inference, TensorFlow CPU inference, oneDNN BF16/INT8, STREAM bandwidth, and OpenVINO GenAI throughput. Results that depend on high clock speed, broad generic integer throughput, or modern dual-socket scale are less favorable.</p>
+        <div class="abstract-grid">
+          
+          <div class="abstract-group">
+            <h3>Excellent / platform strengths</h3>
+            <ul><li>STREAM / HBM memory bandwidth</li><li>oneDNN BF16 and INT8 convolution kernels</li><li>PyTorch 2.11 CPU inference</li><li>TensorFlow 2.21 CPU inference</li><li>OpenVINO GenAI sustained throughput</li></ul>
+          </div>
+          <div class="abstract-group">
+            <h3>Good or mixed</h3>
+            <ul><li>OpenVINO classic INT8 inference</li><li>y-cruncher 1B</li><li>FFTW 1D 4096</li><li>spaCy transformer pipeline</li><li>vLLM CPU latency</li></ul>
+          </div>
+          <div class="abstract-group">
+            <h3>Ordinary or weak for class</h3>
+            <ul><li>7-Zip compression/decompression</li><li>llama.cpp CPU BLAS</li><li>GROMACS / LAMMPS / CP2K versus modern dual-socket servers</li><li>QuantLib</li><li>Linux kernel compile</li><li>SVT-AV1 heavy 4K and 10-bit encoding</li><li>spaCy en_core_web_lg</li></ul>
+          </div>
+          <div class="abstract-group">
+            <h3>Not a platform-wide conclusion</h3>
+            <ul><li>NumPy 1.2.1 because the PTS profile is forced single-threaded</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>STREAM 2013 Memory Bandwidth</h2>
+            <p>Four STREAM kernels from the local 9470C run with public comparison systems for each subtest.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="STREAM subtests">
+            <button type="button" data-interactive-button="copy">Copy</button><button type="button" data-interactive-button="scale">Scale</button><button type="button" data-interactive-button="add">Add</button><button type="button" data-interactive-button="triad">Triad</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Kernel</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "STREAM 2013 Memory Bandwidth", "subtests": {"copy": {"label": "Copy", "formula": "a[i] = b[i]", "unit": "MB/s", "decimals": null, "notation": null, "entries": [{"label": "Copy", "value": 658763.5, "series": "Xeon Max 9470C 1S | 64GB HBM2e"}, {"label": "Copy", "value": 818560, "series": "Xeon 6972P 2S | 24ch DDR5-6400"}, {"label": "Copy", "value": 378852, "series": "Xeon SPR 2S | 16ch DDR5-4800"}, {"label": "Copy", "value": 367461, "series": "EPYC 9654 2S | 24ch DDR5-4800"}, {"label": "Copy", "value": 367428, "series": "EPYC 9754 2S | 24ch DDR5-4800"}, {"label": "Copy", "value": 264741, "series": "Xeon 8592+ 2S | 16ch DDR5-5600"}, {"label": "Copy", "value": 204396, "series": "Xeon CLX 2S | 12ch DDR4-2933"}, {"label": "Copy", "value": 187428, "series": "Xeon 8380 2S | 16ch DDR4-3200"}], "note": "Includes 7 public comparison systems for this STREAM subtest. Values are not normalized across socket count, memory type, compiler, or tuning settings."}, "scale": {"label": "Scale", "formula": "a[i] = q * b[i]", "unit": "MB/s", "decimals": null, "notation": null, "entries": [{"label": "Scale", "value": 651040.3, "series": "Xeon Max 9470C 1S | 64GB HBM2e"}, {"label": "Scale", "value": 797143, "series": "Xeon 6972P 2S | 24ch DDR5-6400"}, {"label": "Scale", "value": 375917, "series": "Xeon SPR 2S | 16ch DDR5-4800"}, {"label": "Scale", "value": 367267, "series": "EPYC 9654 2S | 24ch DDR5-4800"}, {"label": "Scale", "value": 367255, "series": "EPYC 9754 2S | 24ch DDR5-4800"}, {"label": "Scale", "value": 264583, "series": "Xeon 8592+ 2S | 16ch DDR5-5600"}, {"label": "Scale", "value": 204391, "series": "Xeon CLX 2S | 12ch DDR4-2933"}, {"label": "Scale", "value": 185540, "series": "Xeon 8380 2S | 16ch DDR4-3200"}], "note": "Includes 7 public comparison systems for this STREAM subtest. Values are not normalized across socket count, memory type, compiler, or tuning settings."}, "add": {"label": "Add", "formula": "a[i] = b[i] + c[i]", "unit": "MB/s", "decimals": null, "notation": null, "entries": [{"label": "Add", "value": 606724.4, "series": "Xeon Max 9470C 1S | 64GB HBM2e"}, {"label": "Add", "value": 838199, "series": "Xeon 6972P 2S | 24ch DDR5-6400"}, {"label": "Add", "value": 397918, "series": "Xeon SPR 2S | 16ch DDR5-4800"}, {"label": "Add", "value": 405460, "series": "EPYC 9654 2S | 24ch DDR5-4800"}, {"label": "Add", "value": 405443, "series": "EPYC 9754 2S | 24ch DDR5-4800"}, {"label": "Add", "value": 285494, "series": "Xeon 8592+ 2S | 16ch DDR5-5600"}, {"label": "Add", "value": 220498, "series": "Xeon CLX 2S | 12ch DDR4-2933"}, {"label": "Add", "value": 207571, "series": "Xeon 8380 2S | 16ch DDR4-3200"}], "note": "Includes 7 public comparison systems for this STREAM subtest. Values are not normalized across socket count, memory type, compiler, or tuning settings."}, "triad": {"label": "Triad", "formula": "a[i] = b[i] + q * c[i]", "unit": "MB/s", "decimals": null, "notation": null, "entries": [{"label": "Triad", "value": 596258.8, "series": "Xeon Max 9470C 1S | 64GB HBM2e"}, {"label": "Triad", "value": 844817, "series": "Xeon 6972P 2S | 24ch DDR5-6400"}, {"label": "Triad", "value": 398578, "series": "Xeon SPR 2S | 16ch DDR5-4800"}, {"label": "Triad", "value": 406528, "series": "EPYC 9654 2S | 24ch DDR5-4800"}, {"label": "Triad", "value": 406502, "series": "EPYC 9754 2S | 24ch DDR5-4800"}, {"label": "Triad", "value": 285752, "series": "Xeon 8592+ 2S | 16ch DDR5-5600"}, {"label": "Triad", "value": 220219, "series": "Xeon CLX 2S | 12ch DDR4-2933"}, {"label": "Triad", "value": 208729, "series": "Xeon 8380 2S | 16ch DDR4-3200"}], "note": "Includes 7 public comparison systems for this STREAM subtest. Values are not normalized across socket count, memory type, compiler, or tuning settings."}}, "order": ["copy", "scale", "add", "triad"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>7-Zip CPU Throughput</h2>
+            <p>Higher is better. MIPS comparison for compression and decompression; labels include core/thread counts where known.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="7-Zip CPU Throughput metrics">
+            <button type="button" data-interactive-button="compression">Compression</button><button type="button" data-interactive-button="decompression">Decompression</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Metric</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "7-Zip CPU Throughput", "subtests": {"compression": {"label": "Compression", "formula": "7-Zip compression rating", "unit": "MIPS", "decimals": null, "notation": null, "entries": [{"label": "Compression", "value": 351346, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "Compression", "value": 1123940, "series": "EPYC 9755 | 128C/256T"}, {"label": "Compression", "value": 520000, "series": "EPYC 9655P | 96C/192T"}, {"label": "Compression", "value": 428047, "series": "Threadripper 9980X | 64C/128T"}, {"label": "Compression", "value": 188000, "series": "Ryzen 9 9950X | 16C/32T"}, {"label": "Compression", "value": 172000, "series": "Core i9-14900K | 24C/32T"}], "note": "Includes 5 public comparison CPUs for this metric. Higher MIPS means better 7-Zip throughput."}, "decompression": {"label": "Decompression", "formula": "7-Zip decompression rating", "unit": "MIPS", "decimals": null, "notation": null, "entries": [{"label": "Decompression", "value": 205861, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "Decompression", "value": 831688, "series": "EPYC 9755 | 128C/256T"}, {"label": "Decompression", "value": 480000, "series": "EPYC 9655P | 96C/192T"}, {"label": "Decompression", "value": 513073, "series": "Threadripper 9980X | 64C/128T"}, {"label": "Decompression", "value": 158000, "series": "Ryzen 9 9950X | 16C/32T"}, {"label": "Decompression", "value": 146800, "series": "Core i9-14900K | 24C/32T"}], "note": "Includes 5 public comparison CPUs for this metric. Higher MIPS means better 7-Zip throughput."}}, "order": ["compression", "decompression"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>oneDNN Convolution Kernels</h2>
+            <p>Higher is better. GFLOPS comparison for oneDNN BF16 and INT8 convolution kernels; labels include CPU/socket context where known.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="oneDNN Convolution Kernels metrics">
+            <button type="button" data-interactive-button="bf16">BF16 Conv</button><button type="button" data-interactive-button="int8">INT8 Conv</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Kernel</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "oneDNN Convolution Kernels", "subtests": {"bf16": {"label": "BF16 Conv", "formula": "oneDNN convolution batch shapes, BF16 CPU", "unit": "GFLOPS", "decimals": null, "notation": null, "entries": [{"label": "BF16 Conv", "value": 44155, "series": "Xeon Max 9470C | 52C/104T | AMX"}, {"label": "BF16 Conv", "value": 34979, "series": "2x EPYC 9475F | 96C/192T total"}, {"label": "BF16 Conv", "value": 32464, "series": "2x EPYC 9455 | 96C/192T total"}, {"label": "BF16 Conv", "value": 26000, "series": "EPYC 9755 | 128C/256T"}, {"label": "BF16 Conv", "value": 22383, "series": "Threadripper 9980X | 64C/128T"}, {"label": "BF16 Conv", "value": 3500, "series": "Ryzen 9 9950X | 16C/32T"}], "note": "Includes 5 public comparison entries where verified values are available."}, "int8": {"label": "INT8 Conv", "formula": "oneDNN convolution batch shapes, INT8 CPU", "unit": "GFLOPS", "decimals": null, "notation": null, "entries": [{"label": "INT8 Conv", "value": 105713, "series": "Xeon Max 9470C | 52C/104T | AMX"}, {"label": "INT8 Conv", "value": 64073, "series": "2x EPYC 9475F | 96C/192T total"}, {"label": "INT8 Conv", "value": 59409, "series": "2x EPYC 9455 | 96C/192T total"}, {"label": "INT8 Conv", "value": 53335, "series": "EPYC 9755 | 128C/256T"}, {"label": "INT8 Conv", "value": 41748, "series": "Threadripper 9980X | 64C/128T"}, {"label": "INT8 Conv", "value": 14602, "series": "Ryzen 9 9950X | 16C/32T"}], "note": "Includes 5 public comparison entries where verified values are available."}}, "order": ["bf16", "int8"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>oneDNN FP16 / FP32 Limited Comparison</h2>
+            <p>Higher is better. Separate horizontal view because public comparison coverage is sparse for these oneDNN modes.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="oneDNN FP16 / FP32 Limited Comparison metrics">
+            <button type="button" data-interactive-button="fp16">FP16 Conv</button><button type="button" data-interactive-button="fp32">FP32 Conv</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Kernel</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "oneDNN FP16 / FP32 Limited Comparison", "subtests": {"fp16": {"label": "FP16 Conv", "formula": "oneDNN convolution batch shapes, FP16 CPU", "unit": "GFLOPS", "decimals": null, "notation": null, "entries": [{"label": "FP16 Conv", "value": 3570, "series": "Xeon Max 9470C | 52C/104T | AMX"}], "note": "Limited comparison: no verified public comparison CPU is included for this oneDNN mode yet."}, "fp32": {"label": "FP32 Conv", "formula": "oneDNN convolution batch shapes, FP32 CPU", "unit": "GFLOPS", "decimals": null, "notation": null, "entries": [{"label": "FP32 Conv", "value": 5584, "series": "Xeon Max 9470C | 52C/104T | AVX-512"}, {"label": "FP32 Conv", "value": 3500, "series": "Ryzen 9 9950X | 16C/32T"}], "note": "Limited comparison: includes 1 public comparison CPU for this oneDNN mode."}}, "order": ["fp16", "fp32"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>OpenVINO 2026.0 CPU Inference</h2>
+            <p>Higher FPS is better. Labels retain measured latency in ms where available; complex throughput comparisons use README/OpenBenchmarking values.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="OpenVINO 2026.0 CPU Inference metrics">
+            <button type="button" data-interactive-button="face_latency">Face Latency</button><button type="button" data-interactive-button="face_throughput">Face Throughput</button><button type="button" data-interactive-button="vehicle_latency">Vehicle Latency</button><button type="button" data-interactive-button="vehicle_throughput">Vehicle Throughput</button><button type="button" data-interactive-button="road_latency">Road Latency</button><button type="button" data-interactive-button="road_throughput">Road Throughput</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Model / Mode</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "OpenVINO 2026.0 CPU Inference", "subtests": {"face_latency": {"label": "Face Latency", "formula": "Face Detection FP16-INT8 latency mode; label shows latency ms · FPS", "unit": "FPS", "decimals": 0, "notation": null, "entries": [{"label": "Face Latency", "value": 115, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 34.73, "raw_unit": "ms", "value_unit": " FPS"}], "note": "Includes 0 comparison systems where verified values are available. Labels retain latency ms when the local run recorded it."}, "face_throughput": {"label": "Face Throughput", "formula": "Face Detection FP16-INT8 throughput mode; label shows latency ms · FPS", "unit": "FPS", "decimals": 0, "notation": null, "entries": [{"label": "Face Throughput", "value": 208, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 249.62, "raw_unit": "ms", "value_unit": " FPS"}, {"label": "Face Throughput", "value": 193, "series": "EPYC 9755 | 128C/256T server", "value_unit": " FPS"}, {"label": "Face Throughput", "value": 410, "series": "2x EPYC 9755 | 256C/512T server", "value_unit": " FPS"}, {"label": "Face Throughput", "value": 312, "series": "2x EPYC 9655 | 192C/384T server", "value_unit": " FPS"}, {"label": "Face Throughput", "value": 867, "series": "2x Xeon 6980P | 256C/512T server", "value_unit": " FPS"}, {"label": "Face Throughput", "value": 145, "series": "Threadripper 9980X | 64C/128T HEDT", "value_unit": " FPS"}], "note": "Includes 5 comparison systems where verified values are available. Labels retain latency ms when the local run recorded it."}, "vehicle_latency": {"label": "Vehicle Latency", "formula": "Vehicle Detection FP16-INT8 latency mode; label shows latency ms · FPS", "unit": "FPS", "decimals": 0, "notation": null, "entries": [{"label": "Vehicle Latency", "value": 2057, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 1.94, "raw_unit": "ms", "value_unit": " FPS"}], "note": "Includes 0 comparison systems where verified values are available. Labels retain latency ms when the local run recorded it."}, "vehicle_throughput": {"label": "Vehicle Throughput", "formula": "Vehicle Detection FP16-INT8 throughput mode; label shows latency ms · FPS", "unit": "FPS", "decimals": 0, "notation": null, "entries": [{"label": "Vehicle Throughput", "value": 3285, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 15.78, "raw_unit": "ms", "value_unit": " FPS"}, {"label": "Vehicle Throughput", "value": 10894, "series": "EPYC 9755 | 128C/256T server", "value_unit": " FPS"}, {"label": "Vehicle Throughput", "value": 19694, "series": "2x EPYC 9755 | 256C/512T server", "value_unit": " FPS"}, {"label": "Vehicle Throughput", "value": 14655, "series": "2x EPYC 9655 | 192C/384T server", "value_unit": " FPS"}, {"label": "Vehicle Throughput", "value": 13534, "series": "2x Xeon 6980P | 256C/512T server", "value_unit": " FPS"}, {"label": "Vehicle Throughput", "value": 2400, "series": "Threadripper 9980X | 64C/128T HEDT", "value_unit": " FPS"}], "note": "Includes 5 comparison systems where verified values are available. Labels retain latency ms when the local run recorded it."}, "road_latency": {"label": "Road Latency", "formula": "Road Segmentation ADAS FP16-INT8 latency mode; label shows latency ms · FPS", "unit": "FPS", "decimals": 0, "notation": null, "entries": [{"label": "Road Latency", "value": 681, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 5.87, "raw_unit": "ms", "value_unit": " FPS"}], "note": "Includes 0 comparison systems where verified values are available. Labels retain latency ms when the local run recorded it."}, "road_throughput": {"label": "Road Throughput", "formula": "Road Segmentation ADAS FP16-INT8 throughput mode; label shows latency ms · FPS", "unit": "FPS", "decimals": 0, "notation": null, "entries": [{"label": "Road Throughput", "value": 900, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 57.73, "raw_unit": "ms", "value_unit": " FPS"}, {"label": "Road Throughput", "value": 3362, "series": "EPYC 9755 | 128C/256T server", "value_unit": " FPS"}, {"label": "Road Throughput", "value": 6931, "series": "2x EPYC 9755 | 256C/512T server", "value_unit": " FPS"}, {"label": "Road Throughput", "value": 5117, "series": "2x EPYC 9655 | 192C/384T server", "value_unit": " FPS"}, {"label": "Road Throughput", "value": 4406, "series": "2x Xeon 6980P | 256C/512T server", "value_unit": " FPS"}, {"label": "Road Throughput", "value": 650, "series": "Threadripper 9980X | 64C/128T HEDT", "value_unit": " FPS"}], "note": "Includes 5 comparison systems where verified values are available. Labels retain latency ms when the local run recorded it."}}, "order": ["face_latency", "face_throughput", "vehicle_latency", "vehicle_throughput", "road_latency", "road_throughput"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart paged-card" data-paged-chart>
+        <div class="chart-head">
+          <div>
+            <h2>OpenVINO GenAI CPU Throughput</h2>
+            <p>Higher is better. Tokens/sec for CPU OpenVINO GenAI profiles; use the model tabs to compare one profile at a time.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="Model">
+            <button type="button" data-paged-button="qwen3">Qwen3-8B</button><button type="button" data-paged-button="qwen25">Qwen2.5-1.5B</button><button type="button" data-paged-button="granite">granite 8B</button>
+          </div>
+        </div>
+        <div class="paged-plot-wrap">
+          <div class="paged-title" data-paged-title></div>
+          <div class="paged-subtitle" data-paged-formula></div>
+          <div class="paged-plot" data-paged-plot aria-live="polite"></div>
+          <div class="paged-note" data-paged-note></div>
+        </div>
+        <script type="application/json" data-paged-json>{"title": "OpenVINO GenAI CPU Throughput", "pages": {"qwen3": {"label": "Qwen3-8B", "formula": "OpenVINO GenAI 2026.0, Qwen3-8B, CPU throughput", "unit": "tokens/s", "entries": [{"label": "Qwen3-8B", "value": 25.46, "series": "9470C"}, {"label": "Qwen3-8B", "value": 21.75, "series": "EPYC 9745 | 128C/256T server"}, {"label": "Qwen3-8B", "value": 23.36, "series": "EPYC 9555P | 64C/128T server"}, {"label": "Qwen3-8B", "value": 26.8, "series": "EPYC 9655P | 96C/192T server"}, {"label": "Qwen3-8B", "value": 28.6, "series": "2x EPYC 9655 | 192C/384T server"}, {"label": "Qwen3-8B", "value": 34.52, "series": "2x EPYC 9555 | 128C/256T server"}, {"label": "Qwen3-8B", "value": 5.9, "series": "Ryzen 9 9950X | 16C/32T consumer"}, {"label": "Qwen3-8B", "value": 15.02, "series": "Threadripper 7980X | 64C/128T workstation"}]}, "qwen25": {"label": "Qwen2.5-1.5B", "formula": "OpenVINO GenAI 2026.0, Qwen2.5-1.5B-Instruct, CPU throughput", "unit": "tokens/s", "entries": [{"label": "Qwen2.5-1.5B", "value": 63.72, "series": "9470C"}, {"label": "Qwen2.5-1.5B", "value": 54.66, "series": "Threadripper 7980X | 64C/128T workstation"}, {"label": "Qwen2.5-1.5B", "value": 61.0, "series": "EPYC 9755 | 128C/256T server"}, {"label": "Qwen2.5-1.5B", "value": 68.0, "series": "2x EPYC 9655 | 192C/384T server"}, {"label": "Qwen2.5-1.5B", "value": 79.0, "series": "2x EPYC 9555 | 128C/256T server"}, {"label": "Qwen2.5-1.5B", "value": 83.0, "series": "2x EPYC 9455 | 96C/192T server"}, {"label": "Qwen2.5-1.5B", "value": 26.65, "series": "Ryzen 9 9950X | 16C/32T consumer"}, {"label": "Qwen2.5-1.5B", "value": 51.95, "series": "EPYC 9745 | 128C/256T server"}]}, "granite": {"label": "granite 8B", "formula": "OpenVINO GenAI 2026.0/2025.4 public CPU throughput context", "unit": "tokens/s", "entries": [{"label": "granite 8B", "value": 19.97, "series": "9470C"}, {"label": "granite 8B", "value": 26.0, "series": "EPYC 9655P | 96C/192T server"}, {"label": "granite 8B", "value": 25.2, "series": "2x Xeon 6980P | 256C/512T server"}, {"label": "granite 8B", "value": 25.0, "series": "2x EPYC 9755 | 256C/512T server"}, {"label": "granite 8B", "value": 24.0, "series": "EPYC 9755 | 128C/256T server"}, {"label": "granite 8B", "value": 21.9, "series": "2x Xeon 6780E | 288C server"}, {"label": "granite 8B", "value": 18.2, "series": "Threadripper 9980X | 64C/128T workstation"}, {"label": "granite 8B", "value": 16.9, "series": "Threadripper PRO 9995WX | 96C/192T workstation"}, {"label": "granite 8B", "value": 12.7, "series": "Ryzen AI MAX+ 395 | 16C/32T unified memory"}, {"label": "granite 8B", "value": 10.7, "series": "Core Ultra 9 285K | 24C consumer"}, {"label": "granite 8B", "value": 7.4, "series": "Ryzen 9 9950X | 16C/32T consumer"}]}}, "order": ["qwen3", "qwen25", "granite"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>OpenVINO GenAI CPU Time To First Token</h2>
+            <p>Lower original ms is better. Bars use first-token speed relative to milliseconds so taller bars mean lower TTFT; labels keep original ms.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="OpenVINO GenAI CPU Time To First Token metrics">
+            <button type="button" data-interactive-button="qwen3_ttft">Qwen3-8B TTFT</button><button type="button" data-interactive-button="qwen25_ttft">Qwen2.5-1.5B TTFT</button><button type="button" data-interactive-button="granite_ttft">granite 8B TTFT</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Model</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "OpenVINO GenAI CPU Time To First Token", "subtests": {"qwen3_ttft": {"label": "Qwen3-8B TTFT", "formula": "Bars: 9470C TTFT / ms. Labels: original ms · relative speed.", "unit": "relative first-token speed", "decimals": 2, "notation": null, "entries": [{"label": "Qwen3-8B TTFT", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 74.01, "raw_unit": "ms"}, {"label": "Qwen3-8B TTFT", "value": 1.4704947347506458, "series": "EPYC 9755 | 128C/256T server", "raw_value": 50.33, "raw_unit": "ms"}, {"label": "Qwen3-8B TTFT", "value": 1.3101433882103029, "series": "EPYC 9745 | 128C/256T server", "raw_value": 56.49, "raw_unit": "ms"}, {"label": "Qwen3-8B TTFT", "value": 0.9470249520153551, "series": "Threadripper 7980X | 64C/128T HEDT", "raw_value": 78.15, "raw_unit": "ms"}, {"label": "Qwen3-8B TTFT", "value": 0.4157865168539326, "series": "Ryzen 9 9950X | 16C/32T consumer", "raw_value": 178.0, "raw_unit": "ms"}], "note": "Includes 4 public comparison CPUs. Original TTFT milliseconds are converted to first-token speed for bar length."}, "qwen25_ttft": {"label": "Qwen2.5-1.5B TTFT", "formula": "Bars: 9470C TTFT / ms. Labels: original ms · relative speed.", "unit": "relative first-token speed", "decimals": 2, "notation": null, "entries": [{"label": "Qwen2.5-1.5B TTFT", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 35.61, "raw_unit": "ms"}, {"label": "Qwen2.5-1.5B TTFT", "value": 1.5172560715807415, "series": "EPYC 9755 | 128C/256T server", "raw_value": 23.47, "raw_unit": "ms"}, {"label": "Qwen2.5-1.5B TTFT", "value": 1.338721804511278, "series": "EPYC 9745 | 128C/256T server", "raw_value": 26.6, "raw_unit": "ms"}, {"label": "Qwen2.5-1.5B TTFT", "value": 1.3813033359193172, "series": "Threadripper 7980X | 64C/128T HEDT", "raw_value": 25.78, "raw_unit": "ms"}, {"label": "Qwen2.5-1.5B TTFT", "value": 0.8150606546120394, "series": "Ryzen 9 9950X | 16C/32T consumer", "raw_value": 43.69, "raw_unit": "ms"}], "note": "Includes 4 public comparison CPUs. Original TTFT milliseconds are converted to first-token speed for bar length."}, "granite_ttft": {"label": "granite 8B TTFT", "formula": "Bars: 9470C TTFT / ms. Labels: original ms · relative speed.", "unit": "relative first-token speed", "decimals": 2, "notation": null, "entries": [{"label": "granite 8B TTFT", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 83.36, "raw_unit": "ms"}, {"label": "granite 8B TTFT", "value": 1.534327259341064, "series": "EPYC 9755 | 128C/256T server", "raw_value": 54.33, "raw_unit": "ms"}, {"label": "granite 8B TTFT", "value": 1.388870376541153, "series": "EPYC 9745 | 128C/256T server", "raw_value": 60.02, "raw_unit": "ms"}, {"label": "granite 8B TTFT", "value": 0.9588221762134805, "series": "Threadripper 7980X | 64C/128T HEDT", "raw_value": 86.94, "raw_unit": "ms"}, {"label": "granite 8B TTFT", "value": 0.4366455397831439, "series": "Ryzen 9 9950X | 16C/32T consumer", "raw_value": 190.91, "raw_unit": "ms"}], "note": "Includes 4 public comparison CPUs. Original TTFT milliseconds are converted to first-token speed for bar length."}}, "order": ["qwen3_ttft", "qwen25_ttft", "granite_ttft"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>llama.cpp b4154 CPU BLAS</h2>
+            <p>Higher is better. granite-3.0-3b-a800m-instruct-Q8_0 prompt processing 2048 tokens.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="llama.cpp b4154 CPU BLAS metrics">
+            <button type="button" data-interactive-button="granite3b_pp2048">granite 3B PP2048</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Test</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "llama.cpp b4154 CPU BLAS", "subtests": {"granite3b_pp2048": {"label": "granite 3B PP2048", "formula": "CPU BLAS prompt processing throughput; tokens/s", "unit": "tokens/s", "decimals": 2, "notation": null, "entries": [{"label": "granite 3B PP2048", "value": 239.83, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "granite 3B PP2048", "value": 412, "series": "Threadripper 7980X | 64C/128T HEDT"}, {"label": "granite 3B PP2048", "value": 447, "series": "2x EPYC 9275F | server"}, {"label": "granite 3B PP2048", "value": 573, "series": "2x EPYC 9475F | server"}, {"label": "granite 3B PP2048", "value": 654, "series": "2x EPYC 9565 | server"}, {"label": "granite 3B PP2048", "value": 135, "series": "Ryzen 9 9950X | 16C/32T consumer"}], "note": "Includes 5 public comparison entries where verified values are available."}}, "order": ["granite3b_pp2048"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>vLLM CPU Hermes 3B</h2>
+            <p>Latency and throughput are shown as separate horizontal views because they use different units. Latency is converted to requests/s equivalent.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="vLLM CPU Hermes 3B metrics">
+            <button type="button" data-interactive-button="latency">Latency speed</button><button type="button" data-interactive-button="throughput">Throughput</button><button type="button" data-interactive-button="prefill_latency">Manual prefill latency</button><button type="button" data-interactive-button="prefill_prompt_throughput">Manual prompt throughput</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Metric</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "vLLM CPU Hermes 3B", "subtests": {"latency": {"label": "Latency speed", "formula": "1 / average latency seconds; higher is better; values shown in scientific notation", "unit": "requests/s equiv. (scientific)", "decimals": 2, "notation": "scientific", "entries": [{"label": "Latency speed", "value": 0.2439, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "Latency speed", "value": 0.1808, "series": "EPYC 9755 | 128C/256T"}, {"label": "Latency speed", "value": 0.1613, "series": "EPYC 9745 | 128C/256T"}, {"label": "Latency speed", "value": 0.1007, "series": "Threadripper 7980X | 64C/128T"}, {"label": "Latency speed", "value": 0.0641, "series": "Ryzen 9 9950X3D | 16C/32T"}, {"label": "Latency speed", "value": 0.0541, "series": "Core i9-14900K | 24C/32T"}], "note": "Includes 5 public comparison CPUs. This view converts average latency seconds to 1/s so taller bars mean lower latency."}, "throughput": {"label": "Throughput", "formula": "tokens/s throughput; higher is better", "unit": "tokens/s", "decimals": 2, "notation": null, "entries": [{"label": "Throughput", "value": 235.14, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "Throughput", "value": 392, "series": "EPYC 9755 | 128C/256T"}, {"label": "Throughput", "value": 371, "series": "EPYC 9745 | 128C/256T"}, {"label": "Throughput", "value": 339, "series": "EPYC 9655P | 96C/192T"}, {"label": "Throughput", "value": 144, "series": "EPYC 4585PX | 16C/32T"}, {"label": "Throughput", "value": 220, "series": "Threadripper 7980X | 64C/128T"}], "note": "Includes 5 public comparison CPUs. This view uses native tokens/s throughput."}, "prefill_latency": {"label": "Manual prefill latency", "formula": "Bars: 0.238 / latency seconds. Labels: original seconds · relative speed.", "unit": "relative prefill speed", "decimals": 2, "notation": null, "entries": [{"label": "Manual prefill latency", "value": 1.0, "series": "512 input / 1 output / batch 1", "raw_value": 0.238, "raw_unit": "s"}, {"label": "Manual prefill latency", "value": 0.2361111111111111, "series": "2048 input / 1 output / batch 1", "raw_value": 1.008, "raw_unit": "s"}, {"label": "Manual prefill latency", "value": 0.08509116910976045, "series": "4096 input / 1 output / batch 1", "raw_value": 2.797, "raw_unit": "s"}], "note": "Includes 2 public comparison CPUs. This view uses native tokens/s throughput."}, "prefill_prompt_throughput": {"label": "Manual prompt throughput", "formula": "vLLM native backend logger prompt throughput for the 4096-token run.", "unit": "tokens/s", "decimals": 1, "notation": null, "entries": [{"label": "Manual prompt throughput", "value": 1456.6, "series": "4096 input / 1 output / batch 1", "value_unit": " tok/s"}], "note": "Includes 0 public comparison CPUs. This view uses native tokens/s throughput."}}, "order": ["latency", "throughput", "prefill_latency", "prefill_prompt_throughput"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>Molecular Dynamics Throughput</h2>
+            <p>Higher is better. GROMACS and LAMMPS are shown separately; each page now includes server, HEDT/workstation, and consumer/unified-memory comparison points where OpenBenchmarking has public data.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="Molecular Dynamics Throughput metrics">
+            <button type="button" data-interactive-button="gromacs">GROMACS water_GMX50</button><button type="button" data-interactive-button="lammps">LAMMPS 20k Atoms</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Workload</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "Molecular Dynamics Throughput", "subtests": {"gromacs": {"label": "GROMACS water_GMX50", "formula": "GROMACS 2025.4 MPI CPU water_GMX50_bare", "unit": "ns/day", "decimals": 2, "notation": null, "entries": [{"label": "GROMACS water_GMX50", "value": 7.796, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "GROMACS water_GMX50", "value": 39.5, "series": "2x EPYC 9755 | 256C/512T total"}, {"label": "GROMACS water_GMX50", "value": 38.1, "series": "2x EPYC 9965 | 384C/768T total"}, {"label": "GROMACS water_GMX50", "value": 35.4, "series": "2x Xeon 6980P | 256C/512T total"}, {"label": "GROMACS water_GMX50", "value": 31.9, "series": "2x EPYC 9655 | 192C/384T total"}, {"label": "GROMACS water_GMX50", "value": 22.2, "series": "EPYC 9755 | 128C/256T"}, {"label": "GROMACS water_GMX50", "value": 13.6, "series": "Threadripper PRO 9995WX | 96C/192T workstation"}, {"label": "GROMACS water_GMX50", "value": 10.9, "series": "Threadripper 9980X | 64C/128T HEDT"}, {"label": "GROMACS water_GMX50", "value": 7.7, "series": "Threadripper 9970X | 32C/64T HEDT"}, {"label": "GROMACS water_GMX50", "value": 6.5, "series": "Threadripper 7970X | 32C/64T HEDT"}, {"label": "GROMACS water_GMX50", "value": 4.2, "series": "Ryzen 9 9950X3D2 | 16C/32T consumer"}, {"label": "GROMACS water_GMX50", "value": 3.6, "series": "Ryzen 9 9950X3D | 16C/32T consumer"}, {"label": "GROMACS water_GMX50", "value": 2.9, "series": "Ryzen 9 9950X | 16C/32T consumer"}, {"label": "GROMACS water_GMX50", "value": 2.7, "series": "Ryzen AI MAX+ 395 | 16C/32T unified memory"}, {"label": "GROMACS water_GMX50", "value": 1.9, "series": "Core Ultra 9 285K | 24C consumer"}], "note": "Includes 14 public comparison systems for this molecular dynamics workload. Higher ns/day means faster simulation throughput."}, "lammps": {"label": "LAMMPS 20k Atoms", "formula": "LAMMPS 22Jul2025 Update 2, 20k Atoms", "unit": "ns/day", "decimals": 2, "notation": null, "entries": [{"label": "LAMMPS 20k Atoms", "value": 25.818, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "LAMMPS 20k Atoms", "value": 125, "series": "2x EPYC 9965 | 384C/768T total"}, {"label": "LAMMPS 20k Atoms", "value": 123, "series": "2x EPYC 9755 | 256C/512T total"}, {"label": "LAMMPS 20k Atoms", "value": 107, "series": "2x Xeon 6980P | 256C/512T total"}, {"label": "LAMMPS 20k Atoms", "value": 64, "series": "Threadripper PRO 9995WX | 96C/192T workstation"}, {"label": "LAMMPS 20k Atoms", "value": 61, "series": "EPYC 9655P | 96C/192T"}, {"label": "LAMMPS 20k Atoms", "value": 58, "series": "Threadripper 9980X | 64C/128T HEDT"}, {"label": "LAMMPS 20k Atoms", "value": 46, "series": "Threadripper 7980X | 64C/128T HEDT"}, {"label": "LAMMPS 20k Atoms", "value": 37, "series": "Threadripper 9970X | 32C/64T HEDT"}, {"label": "LAMMPS 20k Atoms", "value": 30, "series": "Threadripper 7970X | 32C/64T HEDT"}, {"label": "LAMMPS 20k Atoms", "value": 25, "series": "Core Ultra 9 285K | 24C consumer"}, {"label": "LAMMPS 20k Atoms", "value": 21, "series": "EPYC 4585PX | 16C/32T"}, {"label": "LAMMPS 20k Atoms", "value": 21, "series": "Ryzen 9 9950X | 16C/32T consumer"}, {"label": "LAMMPS 20k Atoms", "value": 21, "series": "Ryzen 9 9950X3D | 16C/32T consumer"}, {"label": "LAMMPS 20k Atoms", "value": 16, "series": "Ryzen 9 9900X | 12C/24T consumer"}], "note": "Includes 14 public comparison systems for this molecular dynamics workload. Higher ns/day means faster simulation throughput."}}, "order": ["gromacs", "lammps"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>CP2K Molecular Dynamics</h2>
+            <p>Original metric is seconds, lower is better. Bars show speed relative to 9470C; labels show original seconds plus relative speed.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="CP2K Molecular Dynamics metrics">
+            <button type="button" data-interactive-button="h20_64">H20-64</button><button type="button" data-interactive-button="h20_256">H20-256</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Input</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "CP2K Molecular Dynamics", "subtests": {"h20_64": {"label": "H20-64", "formula": "Bars: 38.253 / seconds. Labels: original seconds · relative speed.", "unit": "relative speed", "decimals": 2, "notation": null, "entries": [{"label": "H20-64", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 38.253, "raw_unit": "s"}, {"label": "H20-64", "value": 2.71, "series": "2x EPYC 9755 | 256C/512T total", "raw_value": 14.119, "raw_unit": "s"}, {"label": "H20-64", "value": 1.79, "series": "2x EPYC 9965 | 384C/768T total", "raw_value": 21.35, "raw_unit": "s"}, {"label": "H20-64", "value": 0.42, "series": "EPYC 7F32 | 8C/16T", "raw_value": 92.0, "raw_unit": "s"}, {"label": "H20-64", "value": 0.84, "series": "Ryzen 9 9900X3D | 12C/24T consumer", "raw_value": 45.29, "raw_unit": "s"}, {"label": "H20-64", "value": 0.76, "series": "4x EPYC 9V64H | 384C total", "raw_value": 50.22, "raw_unit": "s"}], "note": "Includes 5 public comparison systems for this CP2K input. Original seconds are converted to speed relative to the 9470C baseline."}, "h20_256": {"label": "H20-256", "formula": "Bars: 306.749 / seconds. Labels: original seconds · relative speed.", "unit": "relative speed", "decimals": 2, "notation": null, "entries": [{"label": "H20-256", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 306.749, "raw_unit": "s"}, {"label": "H20-256", "value": 3.83, "series": "2x Xeon 6980P | 256C/512T total", "raw_value": 80.0, "raw_unit": "s"}, {"label": "H20-256", "value": 2.38, "series": "2x EPYC 9535 | 128C/256T total", "raw_value": 129.0, "raw_unit": "s"}, {"label": "H20-256", "value": 1.39, "series": "2x EPYC 9845 | 320C/640T total", "raw_value": 221.0, "raw_unit": "s"}, {"label": "H20-256", "value": 0.88, "series": "4x EPYC 9V64H | 384C total", "raw_value": 348.0, "raw_unit": "s"}, {"label": "H20-256", "value": 0.33, "series": "Xeon Silver 4216 | 16C/32T", "raw_value": 918.0, "raw_unit": "s"}], "note": "Includes 5 public comparison systems for this CP2K input. Original seconds are converted to speed relative to the 9470C baseline."}}, "order": ["h20_64", "h20_256"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>QuantLib 1.39</h2>
+            <p>Higher is better. QuantLib benchmark index, size S, tasks/s.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="QuantLib 1.39 metrics">
+            <button type="button" data-interactive-button="size_s">Size S</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Size</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "QuantLib 1.39", "subtests": {"size_s": {"label": "Size S", "formula": "QuantLib Benchmark Index, Size S; tasks/s", "unit": "tasks/s", "decimals": 2, "notation": null, "entries": [{"label": "Size S", "value": 26.8421, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "Size S", "value": 198, "series": "2x EPYC 9755 | 256C/512T total"}, {"label": "Size S", "value": 161, "series": "2x Xeon 6980P | 256C/512T total"}, {"label": "Size S", "value": 139, "series": "2x EPYC 9655 | 192C/384T total"}, {"label": "Size S", "value": 116, "series": "2x EPYC 9555 | 128C/256T total"}, {"label": "Size S", "value": 97, "series": "2x Xeon 6780E | 288C total"}], "note": "Includes 5 public comparison entries where verified values are available."}}, "order": ["size_s"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>Compile / FFT / y-cruncher</h2>
+            <p>Three separate horizontal views. Bars are normalized to 9470C so taller is better; labels keep the original seconds or Mflops.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="Compile / FFT / y-cruncher metrics">
+            <button type="button" data-interactive-button="linux_compile">Linux compile</button><button type="button" data-interactive-button="fftw">FFTW 1D 4096</button><button type="button" data-interactive-button="ycruncher">y-cruncher 1B</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Workload</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "Compile / FFT / y-cruncher", "subtests": {"linux_compile": {"label": "Linux compile", "formula": "Bars: 506.062 / seconds. Labels: original seconds · relative speed.", "unit": "relative speed", "decimals": 2, "notation": null, "entries": [{"label": "Linux compile", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 506.062, "raw_unit": "s"}, {"label": "Linux compile", "value": 1.97, "series": "EPYC 9575F | 64C/128T", "raw_value": 257.0, "raw_unit": "s"}, {"label": "Linux compile", "value": 0.72, "series": "EPYC 8324P | 32C/64T", "raw_value": 705.0, "raw_unit": "s"}, {"label": "Linux compile", "value": 0.52, "series": "EPYC 8224P | 24C/48T", "raw_value": 966.0, "raw_unit": "s"}, {"label": "Linux compile", "value": 0.45, "series": "EPYC 8224PN | 24C/48T", "raw_value": 1123.0, "raw_unit": "s"}, {"label": "Linux compile", "value": 0.24, "series": "Ryzen AI 9 365 | 10C/20T mobile", "raw_value": 2118.0, "raw_unit": "s"}], "note": "Includes 5 public comparison CPUs/systems. Original seconds are converted to speed relative to the 9470C baseline."}, "fftw": {"label": "FFTW 1D 4096", "formula": "Bars: Mflops / 65,223. Labels: original Mflops · relative throughput.", "unit": "relative throughput", "decimals": 2, "notation": null, "entries": [{"label": "FFTW 1D 4096", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 65223.0, "raw_unit": "Mflops"}, {"label": "FFTW 1D 4096", "value": 1.5, "series": "Ryzen 9 7950X | 16C/32T consumer", "raw_value": 97828.0, "raw_unit": "Mflops"}, {"label": "FFTW 1D 4096", "value": 1.32, "series": "Core i7-11700K | 8C/16T consumer", "raw_value": 85852.0, "raw_unit": "Mflops"}, {"label": "FFTW 1D 4096", "value": 1.28, "series": "Core i9-14900K | 24C/32T consumer", "raw_value": 83438.0, "raw_unit": "Mflops"}, {"label": "FFTW 1D 4096", "value": 1.2, "series": "Core i5-12600K | 10C/16T consumer", "raw_value": 78169.0, "raw_unit": "Mflops"}, {"label": "FFTW 1D 4096", "value": 0.97, "series": "Xeon Gold 6414U | 32C/64T", "raw_value": 63218.0, "raw_unit": "Mflops"}], "note": "Includes 5 public comparison CPUs. Original Mflops are normalized to the 9470C baseline for bar length."}, "ycruncher": {"label": "y-cruncher 1B", "formula": "Bars: 7.605 / seconds. Labels: original seconds · relative speed.", "unit": "relative speed", "decimals": 2, "notation": null, "entries": [{"label": "y-cruncher 1B", "value": 1.0, "series": "Xeon Max 9470C | 52C/104T", "raw_value": 7.605, "raw_unit": "s"}, {"label": "y-cruncher 1B", "value": 2.66, "series": "2x Xeon 6980P | 256C/512T total", "raw_value": 2.859, "raw_unit": "s"}, {"label": "y-cruncher 1B", "value": 1.37, "series": "2x EPYC 9745 | 256C/512T total", "raw_value": 5.559, "raw_unit": "s"}, {"label": "y-cruncher 1B", "value": 0.7, "series": "Threadripper 7980X | 64C/128T HEDT", "raw_value": 10.911, "raw_unit": "s"}, {"label": "y-cruncher 1B", "value": 0.48, "series": "Ryzen 9 7950X3D | 16C/32T consumer", "raw_value": 15.8, "raw_unit": "s"}, {"label": "y-cruncher 1B", "value": 0.2, "series": "Ryzen 7 5800X3D | 8C/16T consumer", "raw_value": 37.91, "raw_unit": "s"}], "note": "Includes 5 public comparison CPUs/systems. Original seconds are converted to speed relative to the 9470C baseline."}}, "order": ["linux_compile", "fftw", "ycruncher"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>NumPy 1.2.1 Single-threaded Score</h2>
+            <p>Higher is better, but this PTS profile forces OMP_NUM_THREADS=1; use as single-thread context only.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="NumPy 1.2.1 Single-threaded Score metrics">
+            <button type="button" data-interactive-button="score">Score</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Mode</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "NumPy 1.2.1 Single-threaded Score", "subtests": {"score": {"label": "Score", "formula": "PTS NumPy score; profile is forced single-threaded", "unit": "score", "decimals": 0, "notation": null, "entries": [{"label": "Score", "value": 472, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "Score", "value": 1098, "series": "EPYC 4585PX | 16C/32T"}, {"label": "Score", "value": 1067, "series": "EPYC 4245P"}, {"label": "Score", "value": 982, "series": "2x EPYC 9575F"}, {"label": "Score", "value": 785, "series": "Ryzen 7 7800X3D | 8C/16T consumer"}, {"label": "Score", "value": 447, "series": "Core i9-9900KS | 8C/16T consumer"}, {"label": "Score", "value": 416, "series": "Ryzen 7 3700X | 8C/16T consumer"}, {"label": "Score", "value": 351, "series": "EPYC 7F52"}, {"label": "Score", "value": 326, "series": "2x EPYC 7F72"}], "note": "Includes 8 public comparison CPUs. This PTS profile is forced single-threaded, so it is not a platform-wide throughput benchmark."}}, "order": ["score"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart matrix-card" data-matrix-chart>
+        <div class="chart-head">
+          <div>
+            <h2>PyTorch 2.11 CPU Inference</h2>
+            <p>Higher is better. Three model families with batch-size tabs; values are batches/s from the PyTorch CPU benchmark.</p>
+          </div>
+          <div class="matrix-controls">
+            <div class="stream-tabs" role="tablist" aria-label="PyTorch models"><button type="button" data-matrix-model="resnet50">ResNet-50</button><button type="button" data-matrix-model="resnet152">ResNet-152</button><button type="button" data-matrix-model="efficientnet">EfficientNet-v2-l</button></div>
+            <div class="stream-tabs" role="tablist" aria-label="PyTorch batch sizes"><button type="button" data-matrix-batch="bs1">bs=1</button><button type="button" data-matrix-batch="bs64">bs=64</button><button type="button" data-matrix-batch="bs512">bs=512</button></div>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-matrix-axis></div>
+            <div class="stream-bars" data-matrix-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Model / Batch</div>
+            <div class="stream-meta-title" data-matrix-title></div>
+            <code data-matrix-formula>batches/s; higher is better</code>
+            <p data-matrix-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-matrix-json>{"title": "PyTorch 2.11 CPU Inference", "unit": "batches/s", "models": [{"id": "resnet50", "label": "ResNet-50"}, {"id": "resnet152", "label": "ResNet-152"}, {"id": "efficientnet", "label": "EfficientNet-v2-l"}], "batches": [{"id": "bs1", "label": "bs=1"}, {"id": "bs64", "label": "bs=64"}, {"id": "bs512", "label": "bs=512"}], "matrix": {"resnet50": {"bs1": [{"series": "Xeon Max 9470C | 52C/104T", "value": 247.14}, {"series": "Ryzen 7 9800X3D | 8C/16T consumer", "value": 140.0}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 132.0}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 125.0}, {"series": "Core Ultra 9 285K | 24C consumer", "value": 116.0}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 91.0}], "bs64": [{"series": "Xeon Max 9470C | 52C/104T", "value": 153.61}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 52.5}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 64.4}, {"series": "EPYC 9455P | 48C/96T server", "value": 71.12}], "bs512": [{"series": "Xeon Max 9470C | 52C/104T", "value": 153.24}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 52.1}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 77.46}, {"series": "Core Ultra 9 285K | 24C consumer", "value": 73.64}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 63.8}, {"series": "EPYC 9455P | 48C/96T server", "value": 69.88}]}, "resnet152": {"bs1": [{"series": "Xeon Max 9470C | 52C/104T", "value": 86.82}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 44.37}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 39.04}, {"series": "Ryzen 9 9900X3D | 12C/24T consumer", "value": 37.35}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 38.5}, {"series": "Core Ultra 9 285K | 24C consumer", "value": 35.6}], "bs64": [{"series": "Xeon Max 9470C | 52C/104T", "value": 59.17}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 26.5}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 28.13}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 18.9}, {"series": "EPYC 9455P | 48C/96T server", "value": 25.8}], "bs512": [{"series": "Xeon Max 9470C | 52C/104T", "value": 58.84}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 26.8}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 28.42}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 19.1}, {"series": "EPYC 9455P | 48C/96T server", "value": 26.1}]}, "efficientnet": {"bs1": [{"series": "Xeon Max 9470C | 52C/104T", "value": 55.48}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 24.5}, {"series": "Ryzen 9 9900X3D | 12C/24T consumer", "value": 22.44}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 21.8}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 23.2}, {"series": "Core Ultra 9 285K | 24C consumer", "value": 18.9}], "bs64": [{"series": "Xeon Max 9470C | 52C/104T", "value": 37.57}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 15.88}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 14.5}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 10.5}, {"series": "EPYC 9455P | 48C/96T server", "value": 14.2}], "bs512": [{"series": "Xeon Max 9470C | 52C/104T", "value": 37.76}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 16.1}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 18.42}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 10.7}, {"series": "EPYC 9455P | 48C/96T server", "value": 14.5}]}}, "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart matrix-card" data-matrix-chart>
+        <div class="chart-head">
+          <div>
+            <h2>TensorFlow 2.21 CPU Inference</h2>
+            <p>Higher is better. Four TensorFlow CPU model families with batch-size tabs; values are images/s.</p>
+          </div>
+          <div class="matrix-controls">
+            <div class="stream-tabs" role="tablist" aria-label="PyTorch models"><button type="button" data-matrix-model="vgg16">VGG-16</button><button type="button" data-matrix-model="alexnet">AlexNet</button><button type="button" data-matrix-model="googlenet">GoogLeNet</button><button type="button" data-matrix-model="resnet50">ResNet-50</button></div>
+            <div class="stream-tabs" role="tablist" aria-label="PyTorch batch sizes"><button type="button" data-matrix-batch="bs64">bs=64</button><button type="button" data-matrix-batch="bs128">bs=128</button></div>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-matrix-axis></div>
+            <div class="stream-bars" data-matrix-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Model / Batch</div>
+            <div class="stream-meta-title" data-matrix-title></div>
+            <code data-matrix-formula>batches/s; higher is better</code>
+            <p data-matrix-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-matrix-json>{"title": "TensorFlow 2.21 CPU Inference", "unit": "images/s", "models": [{"id": "vgg16", "label": "VGG-16"}, {"id": "alexnet", "label": "AlexNet"}, {"id": "googlenet", "label": "GoogLeNet"}, {"id": "resnet50", "label": "ResNet-50"}], "batches": [{"id": "bs64", "label": "bs=64"}, {"id": "bs128", "label": "bs=128"}], "matrix": {"vgg16": {"bs64": [{"series": "Xeon Max 9470C | 52C/104T", "value": 57.98}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 85.0}, {"series": "Threadripper 7980X | 64C/128T HEDT", "value": 52.47}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 25.81}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 207.0}], "bs128": [{"series": "Xeon Max 9470C | 52C/104T", "value": 58.56}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 88.0}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 26.79}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 212.0}]}, "alexnet": {"bs64": [{"series": "Xeon Max 9470C | 52C/104T", "value": 1091.67}, {"series": "Threadripper 7980X | 64C/128T HEDT", "value": 732.0}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 2182.0}], "bs128": [{"series": "Xeon Max 9470C | 52C/104T", "value": 1162.65}, {"series": "Threadripper 7980X | 64C/128T HEDT", "value": 911.0}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 3015.0}]}, "googlenet": {"bs64": [{"series": "Xeon Max 9470C | 52C/104T", "value": 499.89}, {"series": "Threadripper 7980X | 64C/128T HEDT", "value": 261.0}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 798.0}], "bs128": [{"series": "Xeon Max 9470C | 52C/104T", "value": 516.44}, {"series": "Threadripper 7980X | 64C/128T HEDT", "value": 290.0}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 1030.0}]}, "resnet50": {"bs64": [{"series": "Xeon Max 9470C | 52C/104T", "value": 177.11}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 116.0}, {"series": "Threadripper 7980X | 64C/128T HEDT", "value": 78.0}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 277.0}], "bs128": [{"series": "Xeon Max 9470C | 52C/104T", "value": 183.29}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 125.0}, {"series": "Threadripper 7980X | 64C/128T HEDT", "value": 83.0}, {"series": "2x EPYC 9655 | 192C/384T total", "value": 326.0}]}}, "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart matrix-card" data-matrix-chart>
+        <div class="chart-head">
+          <div>
+            <h2>SVT-AV1 4.0 CPU Encoding</h2>
+            <p>Higher is better. Source tabs and preset tabs cover all nine local SVT-AV1 subtests from README.</p>
+          </div>
+          <div class="matrix-controls">
+            <div class="stream-tabs" role="tablist" aria-label="PyTorch models"><button type="button" data-matrix-model="bosphorus4k">Bosphorus 4K</button><button type="button" data-matrix-model="bosphorus1080p">Bosphorus 1080p</button><button type="button" data-matrix-model="beauty4k10">Beauty 4K 10-bit</button></div>
+            <div class="stream-tabs" role="tablist" aria-label="PyTorch batch sizes"><button type="button" data-matrix-batch="p5">Preset 5</button><button type="button" data-matrix-batch="p8">Preset 8</button><button type="button" data-matrix-batch="p13">Preset 13</button></div>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-matrix-axis></div>
+            <div class="stream-bars" data-matrix-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Model / Batch</div>
+            <div class="stream-meta-title" data-matrix-title></div>
+            <code data-matrix-formula>batches/s; higher is better</code>
+            <p data-matrix-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-matrix-json>{"title": "SVT-AV1 4.0 CPU Encoding", "unit": "FPS", "models": [{"id": "bosphorus4k", "label": "Bosphorus 4K"}, {"id": "bosphorus1080p", "label": "Bosphorus 1080p"}, {"id": "beauty4k10", "label": "Beauty 4K 10-bit"}], "batches": [{"id": "p5", "label": "Preset 5"}, {"id": "p8", "label": "Preset 8"}, {"id": "p13", "label": "Preset 13"}], "matrix": {"bosphorus4k": {"p5": [{"series": "Xeon Max 9470C | 52C/104T", "value": 46.57}, {"series": "2x EPYC 9755 | 256C/512T total", "value": 93.0}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 96.0}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 71.0}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 62.0}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 54.27}], "p8": [{"series": "Xeon Max 9470C | 52C/104T", "value": 121.4}, {"series": "EPYC 9755 | 128C/256T server", "value": 234.0}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 170.0}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 157.0}], "p13": [{"series": "Xeon Max 9470C | 52C/104T", "value": 226.55}, {"series": "EPYC 9655P | 96C/192T server", "value": 452.0}, {"series": "EPYC 9555P | 64C/128T server", "value": 443.0}, {"series": "2x EPYC 9755 | 256C/512T total", "value": 440.0}, {"series": "EPYC 9755 | 128C/256T server", "value": 440.0}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 413.0}]}, "bosphorus1080p": {"p5": [{"series": "Xeon Max 9470C | 52C/104T", "value": 135.8}, {"series": "2x EPYC 9755 | 256C/512T total", "value": 266.0}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 258.0}, {"series": "Ryzen 9 9850X3D | consumer", "value": 158.0}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 221.0}, {"series": "Core i9-14900K | 24C/32T consumer", "value": 145.0}], "p8": [{"series": "Xeon Max 9470C | 52C/104T", "value": 321.49}, {"series": "2x EPYC 9755 | 256C/512T total", "value": 607.0}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 594.0}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 440.0}, {"series": "Core i9-14900K | 24C/32T consumer", "value": 336.0}], "p13": [{"series": "Xeon Max 9470C | 52C/104T", "value": 682.14}, {"series": "2x EPYC 9755 | 256C/512T total", "value": 1356.0}, {"series": "Threadripper 9980X | 64C/128T HEDT", "value": 1264.0}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 794.0}, {"series": "Core Ultra 5 245K | desktop", "value": 761.0}]}, "beauty4k10": {"p5": [{"series": "Xeon Max 9470C | 52C/104T", "value": 7.85}, {"series": "Ryzen 9 9950X3D | 16C/32T consumer", "value": 11.93}, {"series": "Core i9-10980XE | HEDT", "value": 4.91}], "p8": [{"series": "Xeon Max 9470C | 52C/104T", "value": 10.43}, {"series": "EPYC 9755 | 128C/256T server", "value": 15.14}, {"series": "Ryzen 9 9950X3D2 | 16C/32T consumer", "value": 18.27}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 17.4}, {"series": "Core Ultra 7 270K+ | 20C desktop", "value": 18.15}], "p13": [{"series": "Xeon Max 9470C | 52C/104T", "value": 12.11}, {"series": "EPYC 9755 | 128C/256T server", "value": 17.69}, {"series": "Ryzen 9 9950X3D2 | 16C/32T consumer", "value": 21.58}, {"series": "Ryzen 9 9950X | 16C/32T consumer", "value": 20.64}, {"series": "Core Ultra X7 | desktop", "value": 9.79}]}}, "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+      <section class="chart stream-card" data-interactive-chart>
+        <div class="chart-head">
+          <div>
+            <h2>spaCy NLP Throughput</h2>
+            <p>Higher is better. Tokens/sec for spaCy CPU NLP pipelines; en_core_web_lg is single-threaded statistical NLP, en_core_web_trf is transformer NLP.</p>
+          </div>
+          <div class="stream-tabs" role="tablist" aria-label="spaCy NLP Throughput metrics">
+            <button type="button" data-interactive-button="lg">en_core_web_lg</button><button type="button" data-interactive-button="trf">en_core_web_trf</button>
+          </div>
+        </div>
+        <div class="stream-panel">
+          <div class="stream-plot" aria-live="polite">
+            <div class="stream-axis" data-interactive-axis></div>
+            <div class="stream-bars" data-interactive-bars></div>
+          </div>
+          <aside class="stream-meta">
+            <div class="stream-meta-label">Pipeline</div>
+            <div class="stream-meta-title" data-interactive-title></div>
+            <code data-interactive-formula></code>
+            <p data-interactive-note></p>
+          </aside>
+        </div>
+        <script type="application/json" data-interactive-json>{"title": "spaCy NLP Throughput", "subtests": {"lg": {"label": "en_core_web_lg", "formula": "single-threaded statistical NLP pipeline; tokens/s", "unit": "tokens/s", "decimals": 0, "notation": null, "entries": [{"label": "en_core_web_lg", "value": 11679, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "en_core_web_lg", "value": 21842, "series": "Core Ultra 9 285K | 24C consumer"}, {"label": "en_core_web_lg", "value": 21437, "series": "Core i9-14900K | 24C/32T consumer"}, {"label": "en_core_web_lg", "value": 13163, "series": "Ryzen 9 9950X | 16C/32T consumer"}, {"label": "en_core_web_lg", "value": 13150, "series": "Ryzen 9 9950X3D | 16C/32T consumer"}, {"label": "en_core_web_lg", "value": 9931, "series": "EPYC 9755 | 128C/256T server"}], "note": "Includes 5 public comparison entries where verified values are available."}, "trf": {"label": "en_core_web_trf", "formula": "transformer NLP pipeline; tokens/s", "unit": "tokens/s", "decimals": 0, "notation": null, "entries": [{"label": "en_core_web_trf", "value": 3975, "series": "Xeon Max 9470C | 52C/104T"}, {"label": "en_core_web_trf", "value": 5781, "series": "EPYC 9755 | 128C/256T server"}, {"label": "en_core_web_trf", "value": 4571, "series": "Core Ultra 9 285K | 24C consumer"}, {"label": "en_core_web_trf", "value": 4121, "series": "Ryzen 9 9950X3D | 16C/32T consumer"}, {"label": "en_core_web_trf", "value": 3601, "series": "Ryzen 9 9950X | 16C/32T consumer"}, {"label": "en_core_web_trf", "value": 2678, "series": "Core i9-14900K | 24C/32T consumer"}], "note": "Includes 5 public comparison entries where verified values are available."}}, "order": ["lg", "trf"], "palette": ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9", "#000000", "#F0E442"]}</script>
+      </section>
+  </main>
+  <footer>
+
+    <h2>Sources</h2>
+    <div class="source-grid">
+      <section>
+        <h3>Original 9470C Result Links</h3>
+        <ul><li><a href="https://openbenchmarking.org/result/2606027-NE-PHORONIX239">Y-Cruncher</a></li>
+<li><a href="https://openbenchmarking.org/result/2606026-NE-NUMPY947030">NumPy</a></li>
+<li><a href="https://openbenchmarking.org/result/2606026-NE-PYTORCH9462">PyTorch</a></li>
+<li><a href="https://openbenchmarking.org/result/2606026-NE-BENCHMARK26">TensorFlow</a></li>
+<li><a href="https://openbenchmarking.org/result/2606027-NE-OPENVINOG00">OpenVINO GenAI</a></li>
+<li><a href="https://openbenchmarking.org/result/2606012-NE-VLLMCPUHE78">vLLM CPU</a></li>
+<li><a href="https://openbenchmarking.org/result/2606024-NE-GROMACS9487">GROMACS</a></li>
+<li><a href="https://openbenchmarking.org/result/2606025-NE-LAMMPS94755">LAMMPS</a></li>
+<li><a href="https://openbenchmarking.org/result/2606037-NE-PLSCP2K9443">CP2K</a></li>
+<li><a href="https://openbenchmarking.org/result/2606027-NE-BENCHMARK83">QuantLib</a></li>
+<li><a href="https://openbenchmarking.org/result/2606021-NE-PHORONIXT83">Linux Kernel Compile</a></li>
+<li><a href="https://openbenchmarking.org/result/2606028-NE-PHORONIXT90">FFTW</a></li>
+<li><a href="https://openbenchmarking.org/result/2606031-NE-AV19470C958">SVT-AV1</a></li>
+<li><a href="https://openbenchmarking.org/result/2606034-NE-SPACY947003">spaCy</a></li></ul>
+      </section>
+      <section>
+        <h3>Additional Comparison Sources</h3>
+        <ul><li><a href="../README.md">Local benchmark README</a></li>
+<li><a href="https://openbenchmarking.org/result/2410130-NE-TURINDDR565">OpenBenchmarking STREAM / EPYC 9755 DDR5 Turin Memory Performance</a></li>
+<li><a href="https://openbenchmarking.org/test/pts/svt-av1">OpenBenchmarking SVT-AV1 test profile public result summary</a></li>
+<li><a href="https://openbenchmarking.org/test/pts/fftw">OpenBenchmarking FFTW test profile</a></li>
+<li><a href="https://mail.openbenchmarking.org/test/pts/openvino-genai">OpenBenchmarking OpenVINO GenAI test profile</a></li>
+<li><a href="https://www.phoronix.com/review/intel-xeon-platinum-8490h">Phoronix Xeon Platinum 8490H review</a></li>
+<li><a href="https://www.phoronix.com/review/xeon-max-hbm2e-amx">Phoronix Xeon Max HBM2e + AMX review</a></li>
+<li><a href="https://www.researchgate.net/publication/373384211_Application_Performance_Analysis_A_Report_on_the_Impact_of_Memory_Bandwidth">Application Performance Analysis STREAM table</a></li>
+<li><a href="https://xeonlive.ru/protsessory/xeon-6/intel-xeon-6900p-69xxp/intel-xeon-6972p-obzor-protsessora-xeon-dlya-serverov-kharakteristiki-proizvoditelnost-testy-i-sravnenie">XeonLive Xeon 6972P STREAM comparison table</a></li>
+<li><a href="https://openbenchmarking.org/test/pts/openvino-genai-1.2.0">OpenBenchmarking OpenVINO GenAI 1.2/1.3 profile metrics</a></li>
+<li><a href="https://mail.openbenchmarking.org/performance/test/pts/openvino-genai/75f54d06a1422f9e96c8185ab7907f98ef10080e">OpenBenchmarking OpenVINO GenAI granite public performance summary</a></li>
+<li><a href="https://mail.openbenchmarking.org/performance/test/pts/gromacs/69f244dadcdfd49a5ef5c19797823c65399f605c">OpenBenchmarking GROMACS 2025.4 public performance summary</a></li>
+<li><a href="https://openbenchmarking.org/performance/test/pts/lammps/71e2fad5c5d63860c7a0aa0dc7f1ae0eb8c109f4">OpenBenchmarking LAMMPS 20k Atoms public performance summary</a></li></ul>
+      </section>
+    </div>
+  </footer>
+
+<script>
+(() => {
+  const roots = Array.from(document.querySelectorAll('[data-interactive-chart]'));
+  if (!roots.length) return;
+
+  const formatValue = (value, decimals = 0, notation = 'standard') => {
+    if (notation === 'scientific') return value.toExponential(decimals);
+    return value.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  };
+  const niceMax = (value) => {
+    const raw = value * 1.12;
+    const order = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+    for (const step of [1, 2, 2.5, 5, 10]) {
+      const top = step * order;
+      if (top >= raw) return top;
+    }
+    return 10 * order;
+  };
+
+  roots.forEach((root) => {
+    const data = JSON.parse(root.querySelector('[data-interactive-json]').textContent);
+    const buttons = Array.from(root.querySelectorAll('[data-interactive-button]'));
+    const axis = root.querySelector('[data-interactive-axis]');
+    const bars = root.querySelector('[data-interactive-bars]');
+    const title = root.querySelector('[data-interactive-title]');
+    const formula = root.querySelector('[data-interactive-formula]');
+    const note = root.querySelector('[data-interactive-note]');
+    const colorFor = (entry, index) => entry.series.includes('9470C') ? '#0072B2' : data.palette[(index + 1) % data.palette.length];
+
+    function render(id) {
+      const subtest = data.subtests[id];
+      const decimals = Number.isInteger(subtest.decimals) ? subtest.decimals : 0;
+    const notation = subtest.notation || 'standard';
+    const max = niceMax(Math.max(...subtest.entries.map((entry) => entry.value)));
+      const ticks = [0, 0.25, 0.5, 0.75, 1].map((ratio) => Math.round(max * ratio));
+
+      buttons.forEach((button) => {
+        const active = button.dataset.interactiveButton === id;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      title.textContent = `${subtest.label} (${subtest.unit})`;
+      formula.textContent = subtest.formula;
+      note.textContent = subtest.note;
+      axis.innerHTML = ticks.map((tick) => `<span style="left:${(tick / max) * 100}%">${formatValue(tick, decimals, notation)}</span>`).join('');
+      bars.innerHTML = subtest.entries.map((entry, index) => {
+        const width = Math.max(1.5, (entry.value / max) * 100);
+        const color = colorFor(entry, index);
+        const own = entry.series.includes('9470C') ? ' is-own' : '';
+        const valueSuffix = entry.value_unit || 'x';
+        const valueLabel = Number.isFinite(entry.raw_value)
+          ? `${formatValue(entry.raw_value, 3)} ${entry.raw_unit || ''} · ${formatValue(entry.value, decimals, notation)}${valueSuffix}`
+          : `${formatValue(entry.value, decimals, notation)}${entry.value_unit || ''}`;
+        return `<div class="stream-row${own}">
+          <div class="stream-name">${entry.series}</div>
+          <div class="stream-track"><div class="stream-fill" style="width:${width}%;background:${color}"></div></div>
+          <div class="stream-value">${valueLabel}</div>
+        </div>`;
+      }).join('');
+    }
+
+    buttons.forEach((button) => button.addEventListener('click', () => render(button.dataset.interactiveButton)));
+    render(data.order[0]);
+  });
+})();
+</script>
+
+<script>
+(() => {
+  const roots = Array.from(document.querySelectorAll('[data-paged-chart]'));
+  if (!roots.length) return;
+
+  const escapeHtml = (value) => String(value).replace(/[&<>"]/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+  const formatValue = (value) => value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  const niceMax = (value) => {
+    const raw = value * 1.14;
+    const order = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+    for (const step of [1, 2, 2.5, 5, 10]) {
+      const top = step * order;
+      if (top >= raw) return top;
+    }
+    return 10 * order;
+  };
+  const wrapLines = (text, maxChars = 15, maxLines = 4) => {
+    const words = String(text).replace(/ \| /g, ' ').split(/\s+/);
+    const lines = [];
+    let current = '';
+    words.forEach((word) => {
+      const next = current ? `${current} ${word}` : word;
+      if (next.length > maxChars && current) {
+        lines.push(current);
+        current = word;
+      } else {
+        current = next;
+      }
+    });
+    if (current) lines.push(current);
+    if (lines.length > maxLines) {
+      lines.length = maxLines;
+      lines[maxLines - 1] = `${lines[maxLines - 1].slice(0, Math.max(3, maxChars - 3))}...`;
+    }
+    return lines;
+  };
+
+  roots.forEach((root) => {
+    const data = JSON.parse(root.querySelector('[data-paged-json]').textContent);
+    const buttons = Array.from(root.querySelectorAll('[data-paged-button]'));
+    const title = root.querySelector('[data-paged-title]');
+    const formula = root.querySelector('[data-paged-formula]');
+    const plot = root.querySelector('[data-paged-plot]');
+    const note = root.querySelector('[data-paged-note]');
+
+    function render(id) {
+      const page = data.pages[id];
+      const entries = page.entries;
+      const max = niceMax(Math.max(...entries.map((entry) => entry.value)));
+      const ticks = [0, 0.25, 0.5, 0.75, 1].map((ratio) => Math.round(max * ratio));
+      const width = Math.max(980, 170 + entries.length * 88);
+      const height = 520;
+      const left = 72;
+      const right = 28;
+      const top = 30;
+      const bottom = 128;
+      const plotW = width - left - right;
+      const plotH = height - top - bottom;
+      const step = plotW / entries.length;
+      const barW = Math.min(46, step * 0.56);
+
+      buttons.forEach((button) => {
+        const active = button.dataset.pagedButton === id;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      title.textContent = `${page.label} (${page.unit})`;
+      formula.textContent = page.formula;
+      note.textContent = `Showing ${entries.length} verified comparison entries for this model only.`;
+
+      const grid = ticks.map((tick) => {
+        const y = top + plotH - (tick / max) * plotH;
+        return `<line x1="${left}" y1="${y}" x2="${width - right}" y2="${y}" class="paged-grid" />
+          <text x="${left - 10}" y="${y + 4}" class="paged-tick" text-anchor="end">${formatValue(tick)}</text>`;
+      }).join('');
+
+      const bars = entries.map((entry, index) => {
+        const barH = Math.max(2, (entry.value / max) * plotH);
+        const x = left + index * step + (step - barW) / 2;
+        const y = top + plotH - barH;
+        const color = entry.series === '9470C' ? '#0072B2' : data.palette[(index + 1) % data.palette.length];
+        const stroke = entry.series === '9470C' ? ' stroke="#1f2937" stroke-width="2"' : '';
+        const labelLines = wrapLines(entry.series);
+        const label = labelLines.map((line, lineIndex) => `<tspan x="${x + barW / 2}" dy="${lineIndex ? 12 : 0}">${escapeHtml(line)}</tspan>`).join('');
+        return `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="4" fill="${color}"${stroke}/>
+          <text x="${x + barW / 2}" y="${y - 7}" class="paged-value" text-anchor="middle">${formatValue(entry.value)}</text>
+          <text x="${x + barW / 2}" y="${top + plotH + 24}" class="paged-xlabel" text-anchor="middle">${label}</text>`;
+      }).join('');
+
+      plot.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(page.label)} OpenVINO GenAI throughput">
+        <line x1="${left}" y1="${top}" x2="${left}" y2="${top + plotH}" class="paged-axis" />
+        <line x1="${left}" y1="${top + plotH}" x2="${width - right}" y2="${top + plotH}" class="paged-axis" />
+        <text x="${left}" y="18" class="paged-unit">${escapeHtml(page.unit)}</text>
+        ${grid}
+        ${bars}
+      </svg>`;
+    }
+
+    buttons.forEach((button) => button.addEventListener('click', () => render(button.dataset.pagedButton)));
+    render(data.order[0]);
+  });
+})();
+</script>
+
+<script>
+(() => {
+  const roots = Array.from(document.querySelectorAll('[data-matrix-chart]'));
+  if (!roots.length) return;
+
+  const formatValue = (value) => value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const niceMax = (value) => {
+    const raw = value * 1.12;
+    const order = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+    for (const step of [1, 2, 2.5, 5, 10]) {
+      const top = step * order;
+      if (top >= raw) return top;
+    }
+    return 10 * order;
+  };
+
+  roots.forEach((root) => {
+    const data = JSON.parse(root.querySelector('[data-matrix-json]').textContent);
+    const modelButtons = Array.from(root.querySelectorAll('[data-matrix-model]'));
+    const batchButtons = Array.from(root.querySelectorAll('[data-matrix-batch]'));
+    const axis = root.querySelector('[data-matrix-axis]');
+    const bars = root.querySelector('[data-matrix-bars]');
+    const title = root.querySelector('[data-matrix-title]');
+    const note = root.querySelector('[data-matrix-note]');
+    let activeModel = data.models[0].id;
+    let activeBatch = data.batches[0].id;
+
+    function labelFor(list, id) {
+      return list.find((item) => item.id === id)?.label || id;
+    }
+
+    function render() {
+      const entries = data.matrix[activeModel][activeBatch] || [];
+      const max = niceMax(Math.max(...entries.map((entry) => entry.value)));
+      const ticks = [0, 0.25, 0.5, 0.75, 1].map((ratio) => Math.round(max * ratio));
+
+      modelButtons.forEach((button) => {
+        const active = button.dataset.matrixModel === activeModel;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      batchButtons.forEach((button) => {
+        const active = button.dataset.matrixBatch === activeBatch;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      title.textContent = `${labelFor(data.models, activeModel)} / ${labelFor(data.batches, activeBatch)} (${data.unit})`;
+      note.textContent = `Showing ${entries.length} verified entries for this PyTorch subtest.`;
+      axis.innerHTML = ticks.map((tick) => `<span style="left:${(tick / max) * 100}%">${formatValue(tick)}</span>`).join('');
+      bars.innerHTML = entries.map((entry, index) => {
+        const width = Math.max(1.5, (entry.value / max) * 100);
+        const color = entry.series.includes('9470C') ? '#0072B2' : data.palette[(index + 1) % data.palette.length];
+        const own = entry.series.includes('9470C') ? ' is-own' : '';
+        return `<div class="stream-row${own}">
+          <div class="stream-name">${entry.series}</div>
+          <div class="stream-track"><div class="stream-fill" style="width:${width}%;background:${color}"></div></div>
+          <div class="stream-value">${formatValue(entry.value)}</div>
+        </div>`;
+      }).join('');
+    }
+
+    modelButtons.forEach((button) => button.addEventListener('click', () => { activeModel = button.dataset.matrixModel; render(); }));
+    batchButtons.forEach((button) => button.addEventListener('click', () => { activeBatch = button.dataset.matrixBatch; render(); }));
+    render();
+  });
+})();
+</script>
+</body>
+</html>

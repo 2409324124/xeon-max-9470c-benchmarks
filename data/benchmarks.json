@@ -1,0 +1,2741 @@
+{
+  "metadata": {
+    "system": "Intel Xeon Max 9470C, 52C/104T, 64GB HBM2-3200",
+    "date": "2026-05-30",
+    "last_updated": "2026-06-03",
+    "comparison_policy": "Each charted test keeps the local 9470C result and at least five public comparison objects. Public values are from OpenBenchmarking/Phoronix result pages, OpenBenchmarking test-profile summaries, or comparison labels recorded from the linked result outputs.",
+    "sources": [
+      {
+        "name": "Local benchmark README",
+        "url": "../README.md"
+      },
+      {
+        "name": "OpenBenchmarking STREAM / EPYC 9755 DDR5 Turin Memory Performance",
+        "url": "https://openbenchmarking.org/result/2410130-NE-TURINDDR565"
+      },
+      {
+        "name": "OpenBenchmarking SVT-AV1 test profile public result summary",
+        "url": "https://openbenchmarking.org/test/pts/svt-av1"
+      },
+      {
+        "name": "OpenBenchmarking FFTW test profile",
+        "url": "https://openbenchmarking.org/test/pts/fftw"
+      },
+      {
+        "name": "OpenBenchmarking OpenVINO GenAI test profile",
+        "url": "https://mail.openbenchmarking.org/test/pts/openvino-genai"
+      },
+      {
+        "name": "Phoronix Xeon Platinum 8490H review",
+        "url": "https://www.phoronix.com/review/intel-xeon-platinum-8490h"
+      },
+      {
+        "name": "Phoronix Xeon Max HBM2e + AMX review",
+        "url": "https://www.phoronix.com/review/xeon-max-hbm2e-amx"
+      },
+      {
+        "name": "Application Performance Analysis STREAM table",
+        "url": "https://www.researchgate.net/publication/373384211_Application_Performance_Analysis_A_Report_on_the_Impact_of_Memory_Bandwidth"
+      },
+      {
+        "name": "XeonLive Xeon 6972P STREAM comparison table",
+        "url": "https://xeonlive.ru/protsessory/xeon-6/intel-xeon-6900p-69xxp/intel-xeon-6972p-obzor-protsessora-xeon-dlya-serverov-kharakteristiki-proizvoditelnost-testy-i-sravnenie"
+      },
+      {
+        "name": "OpenBenchmarking OpenVINO GenAI 1.2/1.3 profile metrics",
+        "url": "https://openbenchmarking.org/test/pts/openvino-genai-1.2.0"
+      },
+      {
+        "name": "OpenBenchmarking OpenVINO GenAI granite public performance summary",
+        "url": "https://mail.openbenchmarking.org/performance/test/pts/openvino-genai/75f54d06a1422f9e96c8185ab7907f98ef10080e"
+      },
+      {
+        "name": "OpenBenchmarking GROMACS 2025.4 public performance summary",
+        "url": "https://mail.openbenchmarking.org/performance/test/pts/gromacs/69f244dadcdfd49a5ef5c19797823c65399f605c"
+      },
+      {
+        "name": "OpenBenchmarking LAMMPS 20k Atoms public performance summary",
+        "url": "https://openbenchmarking.org/performance/test/pts/lammps/71e2fad5c5d63860c7a0aa0dc7f1ae0eb8c109f4"
+      }
+    ],
+    "primary_sources": [
+      {
+        "name": "Y-Cruncher",
+        "url": "https://openbenchmarking.org/result/2606027-NE-PHORONIX239"
+      },
+      {
+        "name": "NumPy",
+        "url": "https://openbenchmarking.org/result/2606026-NE-NUMPY947030"
+      },
+      {
+        "name": "PyTorch",
+        "url": "https://openbenchmarking.org/result/2606026-NE-PYTORCH9462"
+      },
+      {
+        "name": "TensorFlow",
+        "url": "https://openbenchmarking.org/result/2606026-NE-BENCHMARK26"
+      },
+      {
+        "name": "OpenVINO GenAI",
+        "url": "https://openbenchmarking.org/result/2606027-NE-OPENVINOG00"
+      },
+      {
+        "name": "vLLM CPU",
+        "url": "https://openbenchmarking.org/result/2606012-NE-VLLMCPUHE78"
+      },
+      {
+        "name": "GROMACS",
+        "url": "https://openbenchmarking.org/result/2606024-NE-GROMACS9487"
+      },
+      {
+        "name": "LAMMPS",
+        "url": "https://openbenchmarking.org/result/2606025-NE-LAMMPS94755"
+      },
+      {
+        "name": "CP2K",
+        "url": "https://openbenchmarking.org/result/2606037-NE-PLSCP2K9443"
+      },
+      {
+        "name": "QuantLib",
+        "url": "https://openbenchmarking.org/result/2606027-NE-BENCHMARK83"
+      },
+      {
+        "name": "Linux Kernel Compile",
+        "url": "https://openbenchmarking.org/result/2606021-NE-PHORONIXT83"
+      },
+      {
+        "name": "FFTW",
+        "url": "https://openbenchmarking.org/result/2606028-NE-PHORONIXT90"
+      },
+      {
+        "name": "SVT-AV1",
+        "url": "https://openbenchmarking.org/result/2606031-NE-AV19470C958"
+      },
+      {
+        "name": "spaCy",
+        "url": "https://openbenchmarking.org/result/2606034-NE-SPACY947003"
+      }
+    ],
+    "abstract": "The Xeon Max 9470C is a specialized CPU platform: its clearest wins come from HBM bandwidth and Intel-optimized AI kernels, while general integer, compile, video encoding, and several HPC workloads are more mixed. The strongest application-level results are PyTorch CPU inference, TensorFlow CPU inference, oneDNN BF16/INT8, STREAM bandwidth, and OpenVINO GenAI throughput. Results that depend on high clock speed, broad generic integer throughput, or modern dual-socket scale are less favorable.",
+    "classification": [
+      {
+        "label": "Excellent / platform strengths",
+        "items": [
+          "STREAM / HBM memory bandwidth",
+          "oneDNN BF16 and INT8 convolution kernels",
+          "PyTorch 2.11 CPU inference",
+          "TensorFlow 2.21 CPU inference",
+          "OpenVINO GenAI sustained throughput"
+        ]
+      },
+      {
+        "label": "Good or mixed",
+        "items": [
+          "OpenVINO classic INT8 inference",
+          "y-cruncher 1B",
+          "FFTW 1D 4096",
+          "spaCy transformer pipeline",
+          "vLLM CPU latency"
+        ]
+      },
+      {
+        "label": "Ordinary or weak for class",
+        "items": [
+          "7-Zip compression/decompression",
+          "llama.cpp CPU BLAS",
+          "GROMACS / LAMMPS / CP2K versus modern dual-socket servers",
+          "QuantLib",
+          "Linux kernel compile",
+          "SVT-AV1 heavy 4K and 10-bit encoding",
+          "spaCy en_core_web_lg"
+        ]
+      },
+      {
+        "label": "Not a platform-wide conclusion",
+        "items": [
+          "NumPy 1.2.1 because the PTS profile is forced single-threaded"
+        ]
+      }
+    ]
+  },
+  "charts": [
+    {
+      "id": "stream_copy_comparison",
+      "title": "STREAM Copy - Memory Bandwidth",
+      "subtitle": "Higher is better. STREAM 2013 kernels; labels include socket count and memory channel/type when the public source identifies the platform.",
+      "unit": "MB/s",
+      "better": "higher",
+      "type": "stream_interactive",
+      "local_subtests": [
+        {
+          "id": "copy",
+          "label": "Copy",
+          "value": 658763.5,
+          "formula": "a[i] = b[i]"
+        },
+        {
+          "id": "scale",
+          "label": "Scale",
+          "value": 651040.3,
+          "formula": "a[i] = q * b[i]"
+        },
+        {
+          "id": "add",
+          "label": "Add",
+          "value": 606724.4,
+          "formula": "a[i] = b[i] + c[i]"
+        },
+        {
+          "id": "triad",
+          "label": "Triad",
+          "value": 596258.8,
+          "formula": "a[i] = b[i] + q * c[i]"
+        }
+      ],
+      "data": [
+        {
+          "label": "Copy",
+          "value": 658763.5,
+          "series": "Xeon Max 9470C 1S | 64GB HBM2e"
+        },
+        {
+          "label": "Copy",
+          "value": 818560,
+          "series": "Xeon 6972P 2S | 24ch DDR5-6400"
+        },
+        {
+          "label": "Copy",
+          "value": 378852,
+          "series": "Xeon SPR 2S | 16ch DDR5-4800"
+        },
+        {
+          "label": "Copy",
+          "value": 367461,
+          "series": "EPYC 9654 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Copy",
+          "value": 367428,
+          "series": "EPYC 9754 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Copy",
+          "value": 264741,
+          "series": "Xeon 8592+ 2S | 16ch DDR5-5600"
+        },
+        {
+          "label": "Copy",
+          "value": 204396,
+          "series": "Xeon CLX 2S | 12ch DDR4-2933"
+        },
+        {
+          "label": "Copy",
+          "value": 187428,
+          "series": "Xeon 8380 2S | 16ch DDR4-3200"
+        },
+        {
+          "label": "Scale",
+          "value": 651040.3,
+          "series": "Xeon Max 9470C 1S | 64GB HBM2e"
+        },
+        {
+          "label": "Scale",
+          "value": 797143,
+          "series": "Xeon 6972P 2S | 24ch DDR5-6400"
+        },
+        {
+          "label": "Scale",
+          "value": 375917,
+          "series": "Xeon SPR 2S | 16ch DDR5-4800"
+        },
+        {
+          "label": "Scale",
+          "value": 367267,
+          "series": "EPYC 9654 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Scale",
+          "value": 367255,
+          "series": "EPYC 9754 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Scale",
+          "value": 264583,
+          "series": "Xeon 8592+ 2S | 16ch DDR5-5600"
+        },
+        {
+          "label": "Scale",
+          "value": 204391,
+          "series": "Xeon CLX 2S | 12ch DDR4-2933"
+        },
+        {
+          "label": "Scale",
+          "value": 185540,
+          "series": "Xeon 8380 2S | 16ch DDR4-3200"
+        },
+        {
+          "label": "Add",
+          "value": 606724.4,
+          "series": "Xeon Max 9470C 1S | 64GB HBM2e"
+        },
+        {
+          "label": "Add",
+          "value": 838199,
+          "series": "Xeon 6972P 2S | 24ch DDR5-6400"
+        },
+        {
+          "label": "Add",
+          "value": 397918,
+          "series": "Xeon SPR 2S | 16ch DDR5-4800"
+        },
+        {
+          "label": "Add",
+          "value": 405460,
+          "series": "EPYC 9654 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Add",
+          "value": 405443,
+          "series": "EPYC 9754 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Add",
+          "value": 285494,
+          "series": "Xeon 8592+ 2S | 16ch DDR5-5600"
+        },
+        {
+          "label": "Add",
+          "value": 220498,
+          "series": "Xeon CLX 2S | 12ch DDR4-2933"
+        },
+        {
+          "label": "Add",
+          "value": 207571,
+          "series": "Xeon 8380 2S | 16ch DDR4-3200"
+        },
+        {
+          "label": "Triad",
+          "value": 596258.8,
+          "series": "Xeon Max 9470C 1S | 64GB HBM2e"
+        },
+        {
+          "label": "Triad",
+          "value": 844817,
+          "series": "Xeon 6972P 2S | 24ch DDR5-6400"
+        },
+        {
+          "label": "Triad",
+          "value": 398578,
+          "series": "Xeon SPR 2S | 16ch DDR5-4800"
+        },
+        {
+          "label": "Triad",
+          "value": 406528,
+          "series": "EPYC 9654 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Triad",
+          "value": 406502,
+          "series": "EPYC 9754 2S | 24ch DDR5-4800"
+        },
+        {
+          "label": "Triad",
+          "value": 285752,
+          "series": "Xeon 8592+ 2S | 16ch DDR5-5600"
+        },
+        {
+          "label": "Triad",
+          "value": 220219,
+          "series": "Xeon CLX 2S | 12ch DDR4-2933"
+        },
+        {
+          "label": "Triad",
+          "value": 208729,
+          "series": "Xeon 8380 2S | 16ch DDR4-3200"
+        }
+      ]
+    },
+    {
+      "id": "seven_zip",
+      "title": "7-Zip CPU Throughput",
+      "subtitle": "Higher is better. MIPS comparison for compression and decompression; labels include core/thread counts where known.",
+      "unit": "MIPS",
+      "better": "higher",
+      "type": "metric_interactive",
+      "data": [
+        {
+          "label": "Compression",
+          "value": 351346,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "Compression",
+          "value": 1123940,
+          "series": "EPYC 9755 | 128C/256T"
+        },
+        {
+          "label": "Compression",
+          "value": 520000,
+          "series": "EPYC 9655P | 96C/192T"
+        },
+        {
+          "label": "Compression",
+          "value": 428047,
+          "series": "Threadripper 9980X | 64C/128T"
+        },
+        {
+          "label": "Compression",
+          "value": 188000,
+          "series": "Ryzen 9 9950X | 16C/32T"
+        },
+        {
+          "label": "Compression",
+          "value": 172000,
+          "series": "Core i9-14900K | 24C/32T"
+        },
+        {
+          "label": "Decompression",
+          "value": 205861,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "Decompression",
+          "value": 831688,
+          "series": "EPYC 9755 | 128C/256T"
+        },
+        {
+          "label": "Decompression",
+          "value": 480000,
+          "series": "EPYC 9655P | 96C/192T"
+        },
+        {
+          "label": "Decompression",
+          "value": 513073,
+          "series": "Threadripper 9980X | 64C/128T"
+        },
+        {
+          "label": "Decompression",
+          "value": 158000,
+          "series": "Ryzen 9 9950X | 16C/32T"
+        },
+        {
+          "label": "Decompression",
+          "value": 146800,
+          "series": "Core i9-14900K | 24C/32T"
+        }
+      ],
+      "meta_label": "Metric",
+      "local_subtests": [
+        {
+          "id": "compression",
+          "label": "Compression",
+          "value": 351346,
+          "formula": "7-Zip compression rating"
+        },
+        {
+          "id": "decompression",
+          "label": "Decompression",
+          "value": 205861,
+          "formula": "7-Zip decompression rating"
+        }
+      ]
+    },
+    {
+      "id": "onednn_ai_kernels",
+      "title": "oneDNN Convolution Kernels",
+      "subtitle": "Higher is better. GFLOPS comparison for oneDNN BF16 and INT8 convolution kernels; labels include CPU/socket context where known.",
+      "unit": "GFLOPS",
+      "better": "higher",
+      "type": "metric_interactive",
+      "data": [
+        {
+          "label": "BF16 Conv",
+          "value": 44155,
+          "series": "Xeon Max 9470C | 52C/104T | AMX"
+        },
+        {
+          "label": "BF16 Conv",
+          "value": 34979,
+          "series": "2x EPYC 9475F | 96C/192T total"
+        },
+        {
+          "label": "BF16 Conv",
+          "value": 32464,
+          "series": "2x EPYC 9455 | 96C/192T total"
+        },
+        {
+          "label": "BF16 Conv",
+          "value": 26000,
+          "series": "EPYC 9755 | 128C/256T"
+        },
+        {
+          "label": "BF16 Conv",
+          "value": 22383,
+          "series": "Threadripper 9980X | 64C/128T"
+        },
+        {
+          "label": "BF16 Conv",
+          "value": 3500,
+          "series": "Ryzen 9 9950X | 16C/32T"
+        },
+        {
+          "label": "INT8 Conv",
+          "value": 105713,
+          "series": "Xeon Max 9470C | 52C/104T | AMX"
+        },
+        {
+          "label": "INT8 Conv",
+          "value": 64073,
+          "series": "2x EPYC 9475F | 96C/192T total"
+        },
+        {
+          "label": "INT8 Conv",
+          "value": 59409,
+          "series": "2x EPYC 9455 | 96C/192T total"
+        },
+        {
+          "label": "INT8 Conv",
+          "value": 53335,
+          "series": "EPYC 9755 | 128C/256T"
+        },
+        {
+          "label": "INT8 Conv",
+          "value": 41748,
+          "series": "Threadripper 9980X | 64C/128T"
+        },
+        {
+          "label": "INT8 Conv",
+          "value": 14602,
+          "series": "Ryzen 9 9950X | 16C/32T"
+        }
+      ],
+      "meta_label": "Kernel",
+      "local_subtests": [
+        {
+          "id": "bf16",
+          "label": "BF16 Conv",
+          "value": 44155,
+          "formula": "oneDNN convolution batch shapes, BF16 CPU"
+        },
+        {
+          "id": "int8",
+          "label": "INT8 Conv",
+          "value": 105713,
+          "formula": "oneDNN convolution batch shapes, INT8 CPU"
+        }
+      ]
+    },
+    {
+      "id": "onednn_fp16_fp32_limited",
+      "title": "oneDNN FP16 / FP32 Limited Comparison",
+      "subtitle": "Higher is better. Separate horizontal view because public comparison coverage is sparse for these oneDNN modes.",
+      "unit": "GFLOPS",
+      "better": "higher",
+      "type": "metric_interactive",
+      "meta_label": "Kernel",
+      "local_subtests": [
+        {
+          "id": "fp16",
+          "label": "FP16 Conv",
+          "value": 3570,
+          "formula": "oneDNN convolution batch shapes, FP16 CPU"
+        },
+        {
+          "id": "fp32",
+          "label": "FP32 Conv",
+          "value": 5584,
+          "formula": "oneDNN convolution batch shapes, FP32 CPU"
+        }
+      ],
+      "data": [
+        {
+          "label": "FP16 Conv",
+          "value": 3570,
+          "series": "Xeon Max 9470C | 52C/104T | AMX"
+        },
+        {
+          "label": "FP32 Conv",
+          "value": 5584,
+          "series": "Xeon Max 9470C | 52C/104T | AVX-512"
+        },
+        {
+          "label": "FP32 Conv",
+          "value": 3500,
+          "series": "Ryzen 9 9950X | 16C/32T"
+        }
+      ]
+    },
+    {
+      "id": "openvino_2026",
+      "title": "OpenVINO 2026.0 CPU Inference",
+      "subtitle": "Higher FPS is better. Labels retain measured latency in ms where available; complex throughput comparisons use README/OpenBenchmarking values.",
+      "unit": "FPS",
+      "better": "higher",
+      "type": "metric_interactive",
+      "meta_label": "Model / Mode",
+      "local_subtests": [
+        {
+          "id": "face_latency",
+          "label": "Face Latency",
+          "unit": "FPS",
+          "decimals": 0,
+          "formula": "Face Detection FP16-INT8 latency mode; label shows latency ms · FPS"
+        },
+        {
+          "id": "face_throughput",
+          "label": "Face Throughput",
+          "unit": "FPS",
+          "decimals": 0,
+          "formula": "Face Detection FP16-INT8 throughput mode; label shows latency ms · FPS"
+        },
+        {
+          "id": "vehicle_latency",
+          "label": "Vehicle Latency",
+          "unit": "FPS",
+          "decimals": 0,
+          "formula": "Vehicle Detection FP16-INT8 latency mode; label shows latency ms · FPS"
+        },
+        {
+          "id": "vehicle_throughput",
+          "label": "Vehicle Throughput",
+          "unit": "FPS",
+          "decimals": 0,
+          "formula": "Vehicle Detection FP16-INT8 throughput mode; label shows latency ms · FPS"
+        },
+        {
+          "id": "road_latency",
+          "label": "Road Latency",
+          "unit": "FPS",
+          "decimals": 0,
+          "formula": "Road Segmentation ADAS FP16-INT8 latency mode; label shows latency ms · FPS"
+        },
+        {
+          "id": "road_throughput",
+          "label": "Road Throughput",
+          "unit": "FPS",
+          "decimals": 0,
+          "formula": "Road Segmentation ADAS FP16-INT8 throughput mode; label shows latency ms · FPS"
+        }
+      ],
+      "data": [
+        {
+          "label": "Face Latency",
+          "value": 115,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 34.73,
+          "raw_unit": "ms",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Face Throughput",
+          "value": 208,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 249.62,
+          "raw_unit": "ms",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Face Throughput",
+          "value": 193,
+          "series": "EPYC 9755 | 128C/256T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Face Throughput",
+          "value": 410,
+          "series": "2x EPYC 9755 | 256C/512T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Face Throughput",
+          "value": 312,
+          "series": "2x EPYC 9655 | 192C/384T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Face Throughput",
+          "value": 867,
+          "series": "2x Xeon 6980P | 256C/512T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Face Throughput",
+          "value": 145,
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Vehicle Latency",
+          "value": 2057,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 1.94,
+          "raw_unit": "ms",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Vehicle Throughput",
+          "value": 3285,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 15.78,
+          "raw_unit": "ms",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Vehicle Throughput",
+          "value": 10894,
+          "series": "EPYC 9755 | 128C/256T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Vehicle Throughput",
+          "value": 19694,
+          "series": "2x EPYC 9755 | 256C/512T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Vehicle Throughput",
+          "value": 14655,
+          "series": "2x EPYC 9655 | 192C/384T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Vehicle Throughput",
+          "value": 13534,
+          "series": "2x Xeon 6980P | 256C/512T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Vehicle Throughput",
+          "value": 2400,
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Road Latency",
+          "value": 681,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 5.87,
+          "raw_unit": "ms",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Road Throughput",
+          "value": 900,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 57.73,
+          "raw_unit": "ms",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Road Throughput",
+          "value": 3362,
+          "series": "EPYC 9755 | 128C/256T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Road Throughput",
+          "value": 6931,
+          "series": "2x EPYC 9755 | 256C/512T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Road Throughput",
+          "value": 5117,
+          "series": "2x EPYC 9655 | 192C/384T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Road Throughput",
+          "value": 4406,
+          "series": "2x Xeon 6980P | 256C/512T server",
+          "value_unit": " FPS"
+        },
+        {
+          "label": "Road Throughput",
+          "value": 650,
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value_unit": " FPS"
+        }
+      ]
+    },
+    {
+      "id": "openvino_genai_throughput",
+      "title": "OpenVINO GenAI CPU Throughput",
+      "subtitle": "Higher is better. Tokens/sec for CPU OpenVINO GenAI profiles; use the model tabs to compare one profile at a time.",
+      "unit": "tokens/s",
+      "better": "higher",
+      "type": "paged_grouped_bar",
+      "data": [
+        {
+          "label": "Qwen3-8B",
+          "value": 25.46,
+          "series": "9470C"
+        },
+        {
+          "label": "Qwen3-8B",
+          "value": 21.75,
+          "series": "EPYC 9745 | 128C/256T server"
+        },
+        {
+          "label": "Qwen3-8B",
+          "value": 23.36,
+          "series": "EPYC 9555P | 64C/128T server"
+        },
+        {
+          "label": "Qwen3-8B",
+          "value": 26.8,
+          "series": "EPYC 9655P | 96C/192T server"
+        },
+        {
+          "label": "Qwen3-8B",
+          "value": 28.6,
+          "series": "2x EPYC 9655 | 192C/384T server"
+        },
+        {
+          "label": "Qwen3-8B",
+          "value": 34.52,
+          "series": "2x EPYC 9555 | 128C/256T server"
+        },
+        {
+          "label": "Qwen3-8B",
+          "value": 5.9,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        },
+        {
+          "label": "Qwen3-8B",
+          "value": 15.02,
+          "series": "Threadripper 7980X | 64C/128T workstation"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 63.72,
+          "series": "9470C"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 54.66,
+          "series": "Threadripper 7980X | 64C/128T workstation"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 61.0,
+          "series": "EPYC 9755 | 128C/256T server"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 68.0,
+          "series": "2x EPYC 9655 | 192C/384T server"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 79.0,
+          "series": "2x EPYC 9555 | 128C/256T server"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 83.0,
+          "series": "2x EPYC 9455 | 96C/192T server"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 26.65,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        },
+        {
+          "label": "Qwen2.5-1.5B",
+          "value": 51.95,
+          "series": "EPYC 9745 | 128C/256T server"
+        },
+        {
+          "label": "granite 8B",
+          "value": 19.97,
+          "series": "9470C"
+        },
+        {
+          "label": "granite 8B",
+          "value": 26.0,
+          "series": "EPYC 9655P | 96C/192T server"
+        },
+        {
+          "label": "granite 8B",
+          "value": 25.2,
+          "series": "2x Xeon 6980P | 256C/512T server"
+        },
+        {
+          "label": "granite 8B",
+          "value": 25.0,
+          "series": "2x EPYC 9755 | 256C/512T server"
+        },
+        {
+          "label": "granite 8B",
+          "value": 24.0,
+          "series": "EPYC 9755 | 128C/256T server"
+        },
+        {
+          "label": "granite 8B",
+          "value": 21.9,
+          "series": "2x Xeon 6780E | 288C server"
+        },
+        {
+          "label": "granite 8B",
+          "value": 18.2,
+          "series": "Threadripper 9980X | 64C/128T workstation"
+        },
+        {
+          "label": "granite 8B",
+          "value": 16.9,
+          "series": "Threadripper PRO 9995WX | 96C/192T workstation"
+        },
+        {
+          "label": "granite 8B",
+          "value": 12.7,
+          "series": "Ryzen AI MAX+ 395 | 16C/32T unified memory"
+        },
+        {
+          "label": "granite 8B",
+          "value": 10.7,
+          "series": "Core Ultra 9 285K | 24C consumer"
+        },
+        {
+          "label": "granite 8B",
+          "value": 7.4,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        }
+      ],
+      "page_label": "Model",
+      "local_subtests": [
+        {
+          "id": "qwen3",
+          "label": "Qwen3-8B",
+          "formula": "OpenVINO GenAI 2026.0, Qwen3-8B, CPU throughput"
+        },
+        {
+          "id": "qwen25",
+          "label": "Qwen2.5-1.5B",
+          "formula": "OpenVINO GenAI 2026.0, Qwen2.5-1.5B-Instruct, CPU throughput"
+        },
+        {
+          "id": "granite",
+          "label": "granite 8B",
+          "formula": "OpenVINO GenAI 2026.0/2025.4 public CPU throughput context"
+        }
+      ]
+    },
+    {
+      "id": "openvino_genai_ttft",
+      "title": "OpenVINO GenAI CPU Time To First Token",
+      "subtitle": "Lower original ms is better. Bars use first-token speed relative to milliseconds so taller bars mean lower TTFT; labels keep original ms.",
+      "unit": "relative first-token speed",
+      "better": "higher",
+      "type": "metric_interactive",
+      "meta_label": "Model",
+      "local_subtests": [
+        {
+          "id": "qwen3_ttft",
+          "label": "Qwen3-8B TTFT",
+          "unit": "relative first-token speed",
+          "decimals": 2,
+          "formula": "Bars: 9470C TTFT / ms. Labels: original ms · relative speed."
+        },
+        {
+          "id": "qwen25_ttft",
+          "label": "Qwen2.5-1.5B TTFT",
+          "unit": "relative first-token speed",
+          "decimals": 2,
+          "formula": "Bars: 9470C TTFT / ms. Labels: original ms · relative speed."
+        },
+        {
+          "id": "granite_ttft",
+          "label": "granite 8B TTFT",
+          "unit": "relative first-token speed",
+          "decimals": 2,
+          "formula": "Bars: 9470C TTFT / ms. Labels: original ms · relative speed."
+        }
+      ],
+      "data": [
+        {
+          "label": "Qwen3-8B TTFT",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 74.01,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen3-8B TTFT",
+          "value": 1.4704947347506458,
+          "series": "EPYC 9755 | 128C/256T server",
+          "raw_value": 50.33,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen3-8B TTFT",
+          "value": 1.3101433882103029,
+          "series": "EPYC 9745 | 128C/256T server",
+          "raw_value": 56.49,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen3-8B TTFT",
+          "value": 0.9470249520153551,
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "raw_value": 78.15,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen3-8B TTFT",
+          "value": 0.4157865168539326,
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "raw_value": 178.0,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen2.5-1.5B TTFT",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 35.61,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen2.5-1.5B TTFT",
+          "value": 1.5172560715807415,
+          "series": "EPYC 9755 | 128C/256T server",
+          "raw_value": 23.47,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen2.5-1.5B TTFT",
+          "value": 1.338721804511278,
+          "series": "EPYC 9745 | 128C/256T server",
+          "raw_value": 26.6,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen2.5-1.5B TTFT",
+          "value": 1.3813033359193172,
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "raw_value": 25.78,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "Qwen2.5-1.5B TTFT",
+          "value": 0.8150606546120394,
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "raw_value": 43.69,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "granite 8B TTFT",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 83.36,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "granite 8B TTFT",
+          "value": 1.534327259341064,
+          "series": "EPYC 9755 | 128C/256T server",
+          "raw_value": 54.33,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "granite 8B TTFT",
+          "value": 1.388870376541153,
+          "series": "EPYC 9745 | 128C/256T server",
+          "raw_value": 60.02,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "granite 8B TTFT",
+          "value": 0.9588221762134805,
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "raw_value": 86.94,
+          "raw_unit": "ms"
+        },
+        {
+          "label": "granite 8B TTFT",
+          "value": 0.4366455397831439,
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "raw_value": 190.91,
+          "raw_unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "llama_cpp_granite3b",
+      "title": "llama.cpp b4154 CPU BLAS",
+      "subtitle": "Higher is better. granite-3.0-3b-a800m-instruct-Q8_0 prompt processing 2048 tokens.",
+      "unit": "tokens/s",
+      "better": "higher",
+      "type": "metric_interactive",
+      "meta_label": "Test",
+      "local_subtests": [
+        {
+          "id": "granite3b_pp2048",
+          "label": "granite 3B PP2048",
+          "unit": "tokens/s",
+          "decimals": 2,
+          "formula": "CPU BLAS prompt processing throughput; tokens/s"
+        }
+      ],
+      "data": [
+        {
+          "label": "granite 3B PP2048",
+          "value": 239.83,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "granite 3B PP2048",
+          "value": 412,
+          "series": "Threadripper 7980X | 64C/128T HEDT"
+        },
+        {
+          "label": "granite 3B PP2048",
+          "value": 447,
+          "series": "2x EPYC 9275F | server"
+        },
+        {
+          "label": "granite 3B PP2048",
+          "value": 573,
+          "series": "2x EPYC 9475F | server"
+        },
+        {
+          "label": "granite 3B PP2048",
+          "value": 654,
+          "series": "2x EPYC 9565 | server"
+        },
+        {
+          "label": "granite 3B PP2048",
+          "value": 135,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        }
+      ]
+    },
+    {
+      "id": "vllm_cpu",
+      "title": "vLLM CPU Hermes 3B",
+      "subtitle": "Latency and throughput are shown as separate horizontal views because they use different units. Latency is converted to requests/s equivalent.",
+      "unit": "",
+      "better": "higher",
+      "type": "metric_interactive",
+      "data": [
+        {
+          "label": "Latency speed",
+          "value": 0.2439,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "Latency speed",
+          "value": 0.1808,
+          "series": "EPYC 9755 | 128C/256T"
+        },
+        {
+          "label": "Latency speed",
+          "value": 0.1613,
+          "series": "EPYC 9745 | 128C/256T"
+        },
+        {
+          "label": "Latency speed",
+          "value": 0.1007,
+          "series": "Threadripper 7980X | 64C/128T"
+        },
+        {
+          "label": "Latency speed",
+          "value": 0.0641,
+          "series": "Ryzen 9 9950X3D | 16C/32T"
+        },
+        {
+          "label": "Latency speed",
+          "value": 0.0541,
+          "series": "Core i9-14900K | 24C/32T"
+        },
+        {
+          "label": "Throughput",
+          "value": 235.14,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "Throughput",
+          "value": 392,
+          "series": "EPYC 9755 | 128C/256T"
+        },
+        {
+          "label": "Throughput",
+          "value": 371,
+          "series": "EPYC 9745 | 128C/256T"
+        },
+        {
+          "label": "Throughput",
+          "value": 339,
+          "series": "EPYC 9655P | 96C/192T"
+        },
+        {
+          "label": "Throughput",
+          "value": 144,
+          "series": "EPYC 4585PX | 16C/32T"
+        },
+        {
+          "label": "Throughput",
+          "value": 220,
+          "series": "Threadripper 7980X | 64C/128T"
+        },
+        {
+          "label": "Manual prefill latency",
+          "value": 1.0,
+          "series": "512 input / 1 output / batch 1",
+          "raw_value": 0.238,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Manual prefill latency",
+          "value": 0.2361111111111111,
+          "series": "2048 input / 1 output / batch 1",
+          "raw_value": 1.008,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Manual prefill latency",
+          "value": 0.08509116910976045,
+          "series": "4096 input / 1 output / batch 1",
+          "raw_value": 2.797,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Manual prompt throughput",
+          "value": 1456.6,
+          "series": "4096 input / 1 output / batch 1",
+          "value_unit": " tok/s"
+        }
+      ],
+      "meta_label": "Metric",
+      "local_subtests": [
+        {
+          "id": "latency",
+          "label": "Latency speed",
+          "value": 0.2439,
+          "unit": "requests/s equiv. (scientific)",
+          "decimals": 2,
+          "formula": "1 / average latency seconds; higher is better; values shown in scientific notation",
+          "notation": "scientific"
+        },
+        {
+          "id": "throughput",
+          "label": "Throughput",
+          "value": 235.14,
+          "unit": "tokens/s",
+          "decimals": 2,
+          "formula": "tokens/s throughput; higher is better"
+        },
+        {
+          "id": "prefill_latency",
+          "label": "Manual prefill latency",
+          "unit": "relative prefill speed",
+          "decimals": 2,
+          "formula": "Bars: 0.238 / latency seconds. Labels: original seconds · relative speed."
+        },
+        {
+          "id": "prefill_prompt_throughput",
+          "label": "Manual prompt throughput",
+          "unit": "tokens/s",
+          "decimals": 1,
+          "formula": "vLLM native backend logger prompt throughput for the 4096-token run."
+        }
+      ]
+    },
+    {
+      "id": "gromacs_lammps",
+      "title": "Molecular Dynamics Throughput",
+      "subtitle": "Higher is better. GROMACS and LAMMPS are shown separately; each page now includes server, HEDT/workstation, and consumer/unified-memory comparison points where OpenBenchmarking has public data.",
+      "unit": "ns/day",
+      "better": "higher",
+      "type": "metric_interactive",
+      "data": [
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 7.796,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 39.5,
+          "series": "2x EPYC 9755 | 256C/512T total"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 38.1,
+          "series": "2x EPYC 9965 | 384C/768T total"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 35.4,
+          "series": "2x Xeon 6980P | 256C/512T total"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 31.9,
+          "series": "2x EPYC 9655 | 192C/384T total"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 22.2,
+          "series": "EPYC 9755 | 128C/256T"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 13.6,
+          "series": "Threadripper PRO 9995WX | 96C/192T workstation"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 10.9,
+          "series": "Threadripper 9980X | 64C/128T HEDT"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 7.7,
+          "series": "Threadripper 9970X | 32C/64T HEDT"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 6.5,
+          "series": "Threadripper 7970X | 32C/64T HEDT"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 4.2,
+          "series": "Ryzen 9 9950X3D2 | 16C/32T consumer"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 3.6,
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 2.9,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 2.7,
+          "series": "Ryzen AI MAX+ 395 | 16C/32T unified memory"
+        },
+        {
+          "label": "GROMACS water_GMX50",
+          "value": 1.9,
+          "series": "Core Ultra 9 285K | 24C consumer"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 25.818,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 125,
+          "series": "2x EPYC 9965 | 384C/768T total"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 123,
+          "series": "2x EPYC 9755 | 256C/512T total"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 107,
+          "series": "2x Xeon 6980P | 256C/512T total"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 64,
+          "series": "Threadripper PRO 9995WX | 96C/192T workstation"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 61,
+          "series": "EPYC 9655P | 96C/192T"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 58,
+          "series": "Threadripper 9980X | 64C/128T HEDT"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 46,
+          "series": "Threadripper 7980X | 64C/128T HEDT"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 37,
+          "series": "Threadripper 9970X | 32C/64T HEDT"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 30,
+          "series": "Threadripper 7970X | 32C/64T HEDT"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 25,
+          "series": "Core Ultra 9 285K | 24C consumer"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 21,
+          "series": "EPYC 4585PX | 16C/32T"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 21,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 21,
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer"
+        },
+        {
+          "label": "LAMMPS 20k Atoms",
+          "value": 16,
+          "series": "Ryzen 9 9900X | 12C/24T consumer"
+        }
+      ],
+      "meta_label": "Workload",
+      "local_subtests": [
+        {
+          "id": "gromacs",
+          "label": "GROMACS water_GMX50",
+          "unit": "ns/day",
+          "decimals": 2,
+          "formula": "GROMACS 2025.4 MPI CPU water_GMX50_bare"
+        },
+        {
+          "id": "lammps",
+          "label": "LAMMPS 20k Atoms",
+          "unit": "ns/day",
+          "decimals": 2,
+          "formula": "LAMMPS 22Jul2025 Update 2, 20k Atoms"
+        }
+      ]
+    },
+    {
+      "id": "cp2k_speed",
+      "title": "CP2K Molecular Dynamics",
+      "subtitle": "Original metric is seconds, lower is better. Bars show speed relative to 9470C; labels show original seconds plus relative speed.",
+      "unit": "relative speed",
+      "better": "higher",
+      "type": "metric_interactive",
+      "data": [
+        {
+          "label": "H20-64",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 38.253,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-64",
+          "value": 2.71,
+          "series": "2x EPYC 9755 | 256C/512T total",
+          "raw_value": 14.119,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-64",
+          "value": 1.79,
+          "series": "2x EPYC 9965 | 384C/768T total",
+          "raw_value": 21.35,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-64",
+          "value": 0.42,
+          "series": "EPYC 7F32 | 8C/16T",
+          "raw_value": 92.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-64",
+          "value": 0.84,
+          "series": "Ryzen 9 9900X3D | 12C/24T consumer",
+          "raw_value": 45.29,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-64",
+          "value": 0.76,
+          "series": "4x EPYC 9V64H | 384C total",
+          "raw_value": 50.22,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-256",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 306.749,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-256",
+          "value": 3.83,
+          "series": "2x Xeon 6980P | 256C/512T total",
+          "raw_value": 80.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-256",
+          "value": 2.38,
+          "series": "2x EPYC 9535 | 128C/256T total",
+          "raw_value": 129.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-256",
+          "value": 1.39,
+          "series": "2x EPYC 9845 | 320C/640T total",
+          "raw_value": 221.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-256",
+          "value": 0.88,
+          "series": "4x EPYC 9V64H | 384C total",
+          "raw_value": 348.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "H20-256",
+          "value": 0.33,
+          "series": "Xeon Silver 4216 | 16C/32T",
+          "raw_value": 918.0,
+          "raw_unit": "s"
+        }
+      ],
+      "meta_label": "Input",
+      "local_subtests": [
+        {
+          "id": "h20_64",
+          "label": "H20-64",
+          "unit": "relative speed",
+          "decimals": 2,
+          "formula": "Bars: 38.253 / seconds. Labels: original seconds · relative speed."
+        },
+        {
+          "id": "h20_256",
+          "label": "H20-256",
+          "unit": "relative speed",
+          "decimals": 2,
+          "formula": "Bars: 306.749 / seconds. Labels: original seconds · relative speed."
+        }
+      ]
+    },
+    {
+      "id": "quantlib",
+      "title": "QuantLib 1.39",
+      "subtitle": "Higher is better. QuantLib benchmark index, size S, tasks/s.",
+      "unit": "tasks/s",
+      "better": "higher",
+      "type": "metric_interactive",
+      "meta_label": "Size",
+      "local_subtests": [
+        {
+          "id": "size_s",
+          "label": "Size S",
+          "unit": "tasks/s",
+          "decimals": 2,
+          "formula": "QuantLib Benchmark Index, Size S; tasks/s"
+        }
+      ],
+      "data": [
+        {
+          "label": "Size S",
+          "value": 26.8421,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "Size S",
+          "value": 198,
+          "series": "2x EPYC 9755 | 256C/512T total"
+        },
+        {
+          "label": "Size S",
+          "value": 161,
+          "series": "2x Xeon 6980P | 256C/512T total"
+        },
+        {
+          "label": "Size S",
+          "value": 139,
+          "series": "2x EPYC 9655 | 192C/384T total"
+        },
+        {
+          "label": "Size S",
+          "value": 116,
+          "series": "2x EPYC 9555 | 128C/256T total"
+        },
+        {
+          "label": "Size S",
+          "value": 97,
+          "series": "2x Xeon 6780E | 288C total"
+        }
+      ]
+    },
+    {
+      "id": "compile_fftw_ycruncher",
+      "title": "Compile / FFT / y-cruncher",
+      "subtitle": "Three separate horizontal views. Bars are normalized to 9470C so taller is better; labels keep the original seconds or Mflops.",
+      "unit": "relative speed",
+      "better": "higher",
+      "type": "metric_interactive",
+      "data": [
+        {
+          "label": "Linux compile",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 506.062,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Linux compile",
+          "value": 1.97,
+          "series": "EPYC 9575F | 64C/128T",
+          "raw_value": 257.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Linux compile",
+          "value": 0.72,
+          "series": "EPYC 8324P | 32C/64T",
+          "raw_value": 705.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Linux compile",
+          "value": 0.52,
+          "series": "EPYC 8224P | 24C/48T",
+          "raw_value": 966.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Linux compile",
+          "value": 0.45,
+          "series": "EPYC 8224PN | 24C/48T",
+          "raw_value": 1123.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Linux compile",
+          "value": 0.24,
+          "series": "Ryzen AI 9 365 | 10C/20T mobile",
+          "raw_value": 2118.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "FFTW 1D 4096",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 65223.0,
+          "raw_unit": "Mflops"
+        },
+        {
+          "label": "FFTW 1D 4096",
+          "value": 1.5,
+          "series": "Ryzen 9 7950X | 16C/32T consumer",
+          "raw_value": 97828.0,
+          "raw_unit": "Mflops"
+        },
+        {
+          "label": "FFTW 1D 4096",
+          "value": 1.32,
+          "series": "Core i7-11700K | 8C/16T consumer",
+          "raw_value": 85852.0,
+          "raw_unit": "Mflops"
+        },
+        {
+          "label": "FFTW 1D 4096",
+          "value": 1.28,
+          "series": "Core i9-14900K | 24C/32T consumer",
+          "raw_value": 83438.0,
+          "raw_unit": "Mflops"
+        },
+        {
+          "label": "FFTW 1D 4096",
+          "value": 1.2,
+          "series": "Core i5-12600K | 10C/16T consumer",
+          "raw_value": 78169.0,
+          "raw_unit": "Mflops"
+        },
+        {
+          "label": "FFTW 1D 4096",
+          "value": 0.97,
+          "series": "Xeon Gold 6414U | 32C/64T",
+          "raw_value": 63218.0,
+          "raw_unit": "Mflops"
+        },
+        {
+          "label": "y-cruncher 1B",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 7.605,
+          "raw_unit": "s"
+        },
+        {
+          "label": "y-cruncher 1B",
+          "value": 2.66,
+          "series": "2x Xeon 6980P | 256C/512T total",
+          "raw_value": 2.859,
+          "raw_unit": "s"
+        },
+        {
+          "label": "y-cruncher 1B",
+          "value": 1.37,
+          "series": "2x EPYC 9745 | 256C/512T total",
+          "raw_value": 5.559,
+          "raw_unit": "s"
+        },
+        {
+          "label": "y-cruncher 1B",
+          "value": 0.7,
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "raw_value": 10.911,
+          "raw_unit": "s"
+        },
+        {
+          "label": "y-cruncher 1B",
+          "value": 0.48,
+          "series": "Ryzen 9 7950X3D | 16C/32T consumer",
+          "raw_value": 15.8,
+          "raw_unit": "s"
+        },
+        {
+          "label": "y-cruncher 1B",
+          "value": 0.2,
+          "series": "Ryzen 7 5800X3D | 8C/16T consumer",
+          "raw_value": 37.91,
+          "raw_unit": "s"
+        }
+      ],
+      "meta_label": "Workload",
+      "local_subtests": [
+        {
+          "id": "linux_compile",
+          "label": "Linux compile",
+          "unit": "relative speed",
+          "decimals": 2,
+          "formula": "Bars: 506.062 / seconds. Labels: original seconds · relative speed."
+        },
+        {
+          "id": "fftw",
+          "label": "FFTW 1D 4096",
+          "unit": "relative throughput",
+          "decimals": 2,
+          "formula": "Bars: Mflops / 65,223. Labels: original Mflops · relative throughput."
+        },
+        {
+          "id": "ycruncher",
+          "label": "y-cruncher 1B",
+          "unit": "relative speed",
+          "decimals": 2,
+          "formula": "Bars: 7.605 / seconds. Labels: original seconds · relative speed."
+        }
+      ]
+    },
+    {
+      "id": "numpy_single_thread",
+      "title": "NumPy 1.2.1 Single-threaded Score",
+      "subtitle": "Higher is better, but this PTS profile forces OMP_NUM_THREADS=1; use as single-thread context only.",
+      "unit": "score",
+      "better": "higher",
+      "type": "metric_interactive",
+      "meta_label": "Mode",
+      "local_subtests": [
+        {
+          "id": "score",
+          "label": "Score",
+          "unit": "score",
+          "decimals": 0,
+          "formula": "PTS NumPy score; profile is forced single-threaded"
+        }
+      ],
+      "data": [
+        {
+          "label": "Score",
+          "value": 472,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "Score",
+          "value": 1098,
+          "series": "EPYC 4585PX | 16C/32T"
+        },
+        {
+          "label": "Score",
+          "value": 1067,
+          "series": "EPYC 4245P"
+        },
+        {
+          "label": "Score",
+          "value": 982,
+          "series": "2x EPYC 9575F"
+        },
+        {
+          "label": "Score",
+          "value": 785,
+          "series": "Ryzen 7 7800X3D | 8C/16T consumer"
+        },
+        {
+          "label": "Score",
+          "value": 447,
+          "series": "Core i9-9900KS | 8C/16T consumer"
+        },
+        {
+          "label": "Score",
+          "value": 416,
+          "series": "Ryzen 7 3700X | 8C/16T consumer"
+        },
+        {
+          "label": "Score",
+          "value": 351,
+          "series": "EPYC 7F52"
+        },
+        {
+          "label": "Score",
+          "value": 326,
+          "series": "2x EPYC 7F72"
+        }
+      ]
+    },
+    {
+      "id": "pytorch_cpu",
+      "title": "PyTorch 2.11 CPU Inference",
+      "subtitle": "Higher is better. Three model families with batch-size tabs; values are batches/s from the PyTorch CPU benchmark.",
+      "unit": "batches/s",
+      "better": "higher",
+      "type": "matrix_interactive",
+      "models": [
+        {
+          "id": "resnet50",
+          "label": "ResNet-50"
+        },
+        {
+          "id": "resnet152",
+          "label": "ResNet-152"
+        },
+        {
+          "id": "efficientnet",
+          "label": "EfficientNet-v2-l"
+        }
+      ],
+      "batches": [
+        {
+          "id": "bs1",
+          "label": "bs=1"
+        },
+        {
+          "id": "bs64",
+          "label": "bs=64"
+        },
+        {
+          "id": "bs512",
+          "label": "bs=512"
+        }
+      ],
+      "data": [
+        {
+          "model": "resnet50",
+          "batch": "bs1",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 247.14
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs1",
+          "series": "Ryzen 7 9800X3D | 8C/16T consumer",
+          "value": 140.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs1",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 132.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs1",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 125.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs1",
+          "series": "Core Ultra 9 285K | 24C consumer",
+          "value": 116.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs1",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 91.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 153.61
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 52.5
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 64.4
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "EPYC 9455P | 48C/96T server",
+          "value": 71.12
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs512",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 153.24
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs512",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 52.1
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs512",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 77.46
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs512",
+          "series": "Core Ultra 9 285K | 24C consumer",
+          "value": 73.64
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs512",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 63.8
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs512",
+          "series": "EPYC 9455P | 48C/96T server",
+          "value": 69.88
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs1",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 86.82
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs1",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 44.37
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs1",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 39.04
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs1",
+          "series": "Ryzen 9 9900X3D | 12C/24T consumer",
+          "value": 37.35
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs1",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 38.5
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs1",
+          "series": "Core Ultra 9 285K | 24C consumer",
+          "value": 35.6
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs64",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 59.17
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs64",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 26.5
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs64",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 28.13
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs64",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 18.9
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs64",
+          "series": "EPYC 9455P | 48C/96T server",
+          "value": 25.8
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs512",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 58.84
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs512",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 26.8
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs512",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 28.42
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs512",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 19.1
+        },
+        {
+          "model": "resnet152",
+          "batch": "bs512",
+          "series": "EPYC 9455P | 48C/96T server",
+          "value": 26.1
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs1",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 55.48
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs1",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 24.5
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs1",
+          "series": "Ryzen 9 9900X3D | 12C/24T consumer",
+          "value": 22.44
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs1",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 21.8
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs1",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 23.2
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs1",
+          "series": "Core Ultra 9 285K | 24C consumer",
+          "value": 18.9
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs64",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 37.57
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs64",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 15.88
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs64",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 14.5
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs64",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 10.5
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs64",
+          "series": "EPYC 9455P | 48C/96T server",
+          "value": 14.2
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs512",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 37.76
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs512",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 16.1
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs512",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 18.42
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs512",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 10.7
+        },
+        {
+          "model": "efficientnet",
+          "batch": "bs512",
+          "series": "EPYC 9455P | 48C/96T server",
+          "value": 14.5
+        }
+      ]
+    },
+    {
+      "id": "tensorflow_cpu",
+      "title": "TensorFlow 2.21 CPU Inference",
+      "subtitle": "Higher is better. Four TensorFlow CPU model families with batch-size tabs; values are images/s.",
+      "unit": "images/s",
+      "better": "higher",
+      "type": "matrix_interactive",
+      "models": [
+        {
+          "id": "vgg16",
+          "label": "VGG-16"
+        },
+        {
+          "id": "alexnet",
+          "label": "AlexNet"
+        },
+        {
+          "id": "googlenet",
+          "label": "GoogLeNet"
+        },
+        {
+          "id": "resnet50",
+          "label": "ResNet-50"
+        }
+      ],
+      "batches": [
+        {
+          "id": "bs64",
+          "label": "bs=64"
+        },
+        {
+          "id": "bs128",
+          "label": "bs=128"
+        }
+      ],
+      "data": [
+        {
+          "model": "vgg16",
+          "batch": "bs64",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 57.98
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs64",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 85.0
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs64",
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "value": 52.47
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs64",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 25.81
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs64",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 207.0
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs128",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 58.56
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs128",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 88.0
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs128",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 26.79
+        },
+        {
+          "model": "vgg16",
+          "batch": "bs128",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 212.0
+        },
+        {
+          "model": "alexnet",
+          "batch": "bs64",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 1091.67
+        },
+        {
+          "model": "alexnet",
+          "batch": "bs64",
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "value": 732.0
+        },
+        {
+          "model": "alexnet",
+          "batch": "bs64",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 2182.0
+        },
+        {
+          "model": "alexnet",
+          "batch": "bs128",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 1162.65
+        },
+        {
+          "model": "alexnet",
+          "batch": "bs128",
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "value": 911.0
+        },
+        {
+          "model": "alexnet",
+          "batch": "bs128",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 3015.0
+        },
+        {
+          "model": "googlenet",
+          "batch": "bs64",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 499.89
+        },
+        {
+          "model": "googlenet",
+          "batch": "bs64",
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "value": 261.0
+        },
+        {
+          "model": "googlenet",
+          "batch": "bs64",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 798.0
+        },
+        {
+          "model": "googlenet",
+          "batch": "bs128",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 516.44
+        },
+        {
+          "model": "googlenet",
+          "batch": "bs128",
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "value": 290.0
+        },
+        {
+          "model": "googlenet",
+          "batch": "bs128",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 1030.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 177.11
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 116.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "value": 78.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs64",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 277.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs128",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 183.29
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs128",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 125.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs128",
+          "series": "Threadripper 7980X | 64C/128T HEDT",
+          "value": 83.0
+        },
+        {
+          "model": "resnet50",
+          "batch": "bs128",
+          "series": "2x EPYC 9655 | 192C/384T total",
+          "value": 326.0
+        }
+      ]
+    },
+    {
+      "id": "svt_av1",
+      "title": "SVT-AV1 4.0 CPU Encoding",
+      "subtitle": "Higher is better. Source tabs and preset tabs cover all nine local SVT-AV1 subtests from README.",
+      "unit": "FPS",
+      "better": "higher",
+      "type": "matrix_interactive",
+      "models": [
+        {
+          "id": "bosphorus4k",
+          "label": "Bosphorus 4K"
+        },
+        {
+          "id": "bosphorus1080p",
+          "label": "Bosphorus 1080p"
+        },
+        {
+          "id": "beauty4k10",
+          "label": "Beauty 4K 10-bit"
+        }
+      ],
+      "batches": [
+        {
+          "id": "p5",
+          "label": "Preset 5"
+        },
+        {
+          "id": "p8",
+          "label": "Preset 8"
+        },
+        {
+          "id": "p13",
+          "label": "Preset 13"
+        }
+      ],
+      "data": [
+        {
+          "model": "bosphorus4k",
+          "batch": "p5",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 46.57
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p5",
+          "series": "2x EPYC 9755 | 256C/512T total",
+          "value": 93.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p5",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 96.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p5",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 71.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p5",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 62.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p5",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 54.27
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p8",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 121.4
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p8",
+          "series": "EPYC 9755 | 128C/256T server",
+          "value": 234.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p8",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 170.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p8",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 157.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p13",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 226.55
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p13",
+          "series": "EPYC 9655P | 96C/192T server",
+          "value": 452.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p13",
+          "series": "EPYC 9555P | 64C/128T server",
+          "value": 443.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p13",
+          "series": "2x EPYC 9755 | 256C/512T total",
+          "value": 440.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p13",
+          "series": "EPYC 9755 | 128C/256T server",
+          "value": 440.0
+        },
+        {
+          "model": "bosphorus4k",
+          "batch": "p13",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 413.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p5",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 135.8
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p5",
+          "series": "2x EPYC 9755 | 256C/512T total",
+          "value": 266.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p5",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 258.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p5",
+          "series": "Ryzen 9 9850X3D | consumer",
+          "value": 158.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p5",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 221.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p5",
+          "series": "Core i9-14900K | 24C/32T consumer",
+          "value": 145.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p8",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 321.49
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p8",
+          "series": "2x EPYC 9755 | 256C/512T total",
+          "value": 607.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p8",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 594.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p8",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 440.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p8",
+          "series": "Core i9-14900K | 24C/32T consumer",
+          "value": 336.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p13",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 682.14
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p13",
+          "series": "2x EPYC 9755 | 256C/512T total",
+          "value": 1356.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p13",
+          "series": "Threadripper 9980X | 64C/128T HEDT",
+          "value": 1264.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p13",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 794.0
+        },
+        {
+          "model": "bosphorus1080p",
+          "batch": "p13",
+          "series": "Core Ultra 5 245K | desktop",
+          "value": 761.0
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p5",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 7.85
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p5",
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer",
+          "value": 11.93
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p5",
+          "series": "Core i9-10980XE | HEDT",
+          "value": 4.91
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p8",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 10.43
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p8",
+          "series": "EPYC 9755 | 128C/256T server",
+          "value": 15.14
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p8",
+          "series": "Ryzen 9 9950X3D2 | 16C/32T consumer",
+          "value": 18.27
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p8",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 17.4
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p8",
+          "series": "Core Ultra 7 270K+ | 20C desktop",
+          "value": 18.15
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p13",
+          "series": "Xeon Max 9470C | 52C/104T",
+          "value": 12.11
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p13",
+          "series": "EPYC 9755 | 128C/256T server",
+          "value": 17.69
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p13",
+          "series": "Ryzen 9 9950X3D2 | 16C/32T consumer",
+          "value": 21.58
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p13",
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "value": 20.64
+        },
+        {
+          "model": "beauty4k10",
+          "batch": "p13",
+          "series": "Core Ultra X7 | desktop",
+          "value": 9.79
+        }
+      ]
+    },
+    {
+      "id": "spacy",
+      "title": "spaCy NLP Throughput",
+      "subtitle": "Higher is better. Tokens/sec for spaCy CPU NLP pipelines; en_core_web_lg is single-threaded statistical NLP, en_core_web_trf is transformer NLP.",
+      "unit": "tokens/s",
+      "better": "higher",
+      "type": "metric_interactive",
+      "data": [
+        {
+          "label": "en_core_web_lg",
+          "value": 11679,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "en_core_web_lg",
+          "value": 21842,
+          "series": "Core Ultra 9 285K | 24C consumer"
+        },
+        {
+          "label": "en_core_web_lg",
+          "value": 21437,
+          "series": "Core i9-14900K | 24C/32T consumer"
+        },
+        {
+          "label": "en_core_web_lg",
+          "value": 13163,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        },
+        {
+          "label": "en_core_web_lg",
+          "value": 13150,
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer"
+        },
+        {
+          "label": "en_core_web_lg",
+          "value": 9931,
+          "series": "EPYC 9755 | 128C/256T server"
+        },
+        {
+          "label": "en_core_web_trf",
+          "value": 3975,
+          "series": "Xeon Max 9470C | 52C/104T"
+        },
+        {
+          "label": "en_core_web_trf",
+          "value": 5781,
+          "series": "EPYC 9755 | 128C/256T server"
+        },
+        {
+          "label": "en_core_web_trf",
+          "value": 4571,
+          "series": "Core Ultra 9 285K | 24C consumer"
+        },
+        {
+          "label": "en_core_web_trf",
+          "value": 4121,
+          "series": "Ryzen 9 9950X3D | 16C/32T consumer"
+        },
+        {
+          "label": "en_core_web_trf",
+          "value": 3601,
+          "series": "Ryzen 9 9950X | 16C/32T consumer"
+        },
+        {
+          "label": "en_core_web_trf",
+          "value": 2678,
+          "series": "Core i9-14900K | 24C/32T consumer"
+        }
+      ],
+      "meta_label": "Pipeline",
+      "local_subtests": [
+        {
+          "id": "lg",
+          "label": "en_core_web_lg",
+          "unit": "tokens/s",
+          "decimals": 0,
+          "formula": "single-threaded statistical NLP pipeline; tokens/s"
+        },
+        {
+          "id": "trf",
+          "label": "en_core_web_trf",
+          "unit": "tokens/s",
+          "decimals": 0,
+          "formula": "transformer NLP pipeline; tokens/s"
+        }
+      ]
+    }
+  ]
+}
