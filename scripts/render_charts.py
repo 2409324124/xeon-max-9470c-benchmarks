@@ -200,7 +200,7 @@ def render_interactive_section(chart):
         entries = entries_by_label[label]
         comparison_count = max(0, len({entry["series"] for entry in entries}) - 1)
         if chart.get("type") == "stream_interactive":
-            note = f"Includes {comparison_count} public comparison systems for this STREAM subtest. Values are not normalized across socket count, memory type, compiler, or tuning settings."
+            note = f"Includes {comparison_count} public comparison systems for this STREAM subtest. Mixed platform classes are shown together; values are not normalized across socket count, memory type/channel, compiler, NUMA mode, or tuning."
         elif chart["id"] == "seven_zip":
             note = f"Includes {comparison_count} public comparison CPUs for this metric. Higher MIPS means better 7-Zip throughput."
         elif chart["id"] == "vllm_cpu":
@@ -241,7 +241,7 @@ def render_interactive_section(chart):
         }
 
     title = "STREAM 2013 Memory Bandwidth" if chart.get("type") == "stream_interactive" else chart["title"]
-    intro = "Four STREAM kernels from the local 9470C run with public comparison systems for each subtest." if chart.get("type") == "stream_interactive" else chart["subtitle"]
+    intro = chart["subtitle"]
     aria = "STREAM subtests" if chart.get("type") == "stream_interactive" else f'{chart["title"]} metrics'
     meta_label = chart.get("meta_label") or ("Kernel" if chart.get("type") == "stream_interactive" else "Metric")
     groups = chart.get("comparison_groups") or []

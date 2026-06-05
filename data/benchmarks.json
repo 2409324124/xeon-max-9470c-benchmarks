@@ -10,6 +10,10 @@
         "url": "../README.md"
       },
       {
+        "name": "OpenBenchmarking STREAM test profile",
+        "url": "https://openbenchmarking.org/test/pts/stream"
+      },
+      {
         "name": "OpenBenchmarking STREAM / EPYC 9755 DDR5 Turin Memory Performance",
         "url": "https://openbenchmarking.org/result/2410130-NE-TURINDDR565"
       },
@@ -162,7 +166,7 @@
     {
       "id": "stream_copy_comparison",
       "title": "STREAM 2013 Memory Bandwidth",
-      "subtitle": "Higher is better. 9470C HBM local result is separated from dual-socket DDR aggregate reference data to avoid implying a like-for-like platform comparison.",
+      "subtitle": "Higher is better. Mixed platform comparison; labels show socket class and memory type/channel where the public source identifies it.",
       "unit": "MB/s",
       "better": "higher",
       "type": "stream_interactive",
@@ -196,206 +200,162 @@
         {
           "label": "Copy",
           "value": 658763.5,
-          "series": "Xeon Max 9470C 1S | 64GB HBM2e",
-          "group": "local_hbm"
+          "series": "Xeon Max 9470C | 1S server | 64GB HBM2e"
         },
         {
           "label": "Copy",
           "value": 818560,
-          "series": "Xeon 6972P 2S | 24ch DDR5-6400",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 6972P | 2S server | 24ch DDR5-6400"
         },
         {
           "label": "Copy",
           "value": 378852,
-          "series": "Xeon SPR 2S | 16ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "Xeon SPR | 2S server | 16ch DDR5-4800"
         },
         {
           "label": "Copy",
           "value": 367461,
-          "series": "EPYC 9654 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9654 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Copy",
           "value": 367428,
-          "series": "EPYC 9754 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9754 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Copy",
           "value": 264741,
-          "series": "Xeon 8592+ 2S | 16ch DDR5-5600",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 8592+ | 2S server | 16ch DDR5-5600"
         },
         {
           "label": "Copy",
           "value": 204396,
-          "series": "Xeon CLX 2S | 12ch DDR4-2933",
-          "group": "dual_socket_ddr"
+          "series": "Xeon CLX | 2S server | 12ch DDR4-2933"
         },
         {
           "label": "Copy",
           "value": 187428,
-          "series": "Xeon 8380 2S | 16ch DDR4-3200",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 8380 | 2S server | 16ch DDR4-3200"
         },
         {
           "label": "Scale",
           "value": 651040.3,
-          "series": "Xeon Max 9470C 1S | 64GB HBM2e",
-          "group": "local_hbm"
+          "series": "Xeon Max 9470C | 1S server | 64GB HBM2e"
         },
         {
           "label": "Scale",
           "value": 797143,
-          "series": "Xeon 6972P 2S | 24ch DDR5-6400",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 6972P | 2S server | 24ch DDR5-6400"
         },
         {
           "label": "Scale",
           "value": 375917,
-          "series": "Xeon SPR 2S | 16ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "Xeon SPR | 2S server | 16ch DDR5-4800"
         },
         {
           "label": "Scale",
           "value": 367267,
-          "series": "EPYC 9654 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9654 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Scale",
           "value": 367255,
-          "series": "EPYC 9754 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9754 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Scale",
           "value": 264583,
-          "series": "Xeon 8592+ 2S | 16ch DDR5-5600",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 8592+ | 2S server | 16ch DDR5-5600"
         },
         {
           "label": "Scale",
           "value": 204391,
-          "series": "Xeon CLX 2S | 12ch DDR4-2933",
-          "group": "dual_socket_ddr"
+          "series": "Xeon CLX | 2S server | 12ch DDR4-2933"
         },
         {
           "label": "Scale",
           "value": 185540,
-          "series": "Xeon 8380 2S | 16ch DDR4-3200",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 8380 | 2S server | 16ch DDR4-3200"
         },
         {
           "label": "Add",
           "value": 606724.4,
-          "series": "Xeon Max 9470C 1S | 64GB HBM2e",
-          "group": "local_hbm"
+          "series": "Xeon Max 9470C | 1S server | 64GB HBM2e"
         },
         {
           "label": "Add",
           "value": 838199,
-          "series": "Xeon 6972P 2S | 24ch DDR5-6400",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 6972P | 2S server | 24ch DDR5-6400"
         },
         {
           "label": "Add",
           "value": 397918,
-          "series": "Xeon SPR 2S | 16ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "Xeon SPR | 2S server | 16ch DDR5-4800"
         },
         {
           "label": "Add",
           "value": 405460,
-          "series": "EPYC 9654 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9654 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Add",
           "value": 405443,
-          "series": "EPYC 9754 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9754 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Add",
           "value": 285494,
-          "series": "Xeon 8592+ 2S | 16ch DDR5-5600",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 8592+ | 2S server | 16ch DDR5-5600"
         },
         {
           "label": "Add",
           "value": 220498,
-          "series": "Xeon CLX 2S | 12ch DDR4-2933",
-          "group": "dual_socket_ddr"
+          "series": "Xeon CLX | 2S server | 12ch DDR4-2933"
         },
         {
           "label": "Add",
           "value": 207571,
-          "series": "Xeon 8380 2S | 16ch DDR4-3200",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 8380 | 2S server | 16ch DDR4-3200"
         },
         {
           "label": "Triad",
           "value": 596258.8,
-          "series": "Xeon Max 9470C 1S | 64GB HBM2e",
-          "group": "local_hbm"
+          "series": "Xeon Max 9470C | 1S server | 64GB HBM2e"
         },
         {
           "label": "Triad",
           "value": 844817,
-          "series": "Xeon 6972P 2S | 24ch DDR5-6400",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 6972P | 2S server | 24ch DDR5-6400"
         },
         {
           "label": "Triad",
           "value": 398578,
-          "series": "Xeon SPR 2S | 16ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "Xeon SPR | 2S server | 16ch DDR5-4800"
         },
         {
           "label": "Triad",
           "value": 406528,
-          "series": "EPYC 9654 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9654 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Triad",
           "value": 406502,
-          "series": "EPYC 9754 2S | 24ch DDR5-4800",
-          "group": "dual_socket_ddr"
+          "series": "EPYC 9754 | 2S server | 24ch DDR5-4800"
         },
         {
           "label": "Triad",
           "value": 285752,
-          "series": "Xeon 8592+ 2S | 16ch DDR5-5600",
-          "group": "dual_socket_ddr"
+          "series": "Xeon 8592+ | 2S server | 16ch DDR5-5600"
         },
         {
           "label": "Triad",
           "value": 220219,
-          "series": "Xeon CLX 2S | 12ch DDR4-2933",
-          "group": "dual_socket_ddr"
+          "series": "Xeon CLX | 2S server | 12ch DDR4-2933"
         },
         {
           "label": "Triad",
           "value": 208729,
-          "series": "Xeon 8380 2S | 16ch DDR4-3200",
-          "group": "dual_socket_ddr"
-        }
-      ],
-      "comparison_groups": [
-        {
-          "id": "local_hbm",
-          "label": "9470C HBM local",
-          "note": "Local Xeon Max 9470C HBM2e result only. Verified public same-kernel, same-class single-socket/HBM comparison coverage is limited, so this default view does not mix in dual-socket DDR aggregate results."
-        },
-        {
-          "id": "dual_socket_ddr",
-          "label": "Dual-socket DDR reference",
-          "note": "Reference only: these are dual-socket DDR aggregate STREAM results from public comparison sources. They are not normalized against the single-socket 9470C HBM run across socket count, memory type, compiler, NUMA mode, or tuning."
+          "series": "Xeon 8380 | 2S server | 16ch DDR4-3200"
         }
       ]
     },
