@@ -244,10 +244,13 @@ def render_interactive_section(chart):
     intro = "Four STREAM kernels from the local 9470C run with public comparison systems for each subtest." if chart.get("type") == "stream_interactive" else chart["subtitle"]
     aria = "STREAM subtests" if chart.get("type") == "stream_interactive" else f'{chart["title"]} metrics'
     meta_label = chart.get("meta_label") or ("Kernel" if chart.get("type") == "stream_interactive" else "Metric")
+    groups = chart.get("comparison_groups") or []
     payload = {
         "title": title,
         "subtests": subtests,
         "order": [item["id"] for item in chart.get("local_subtests", [])],
+        "groups": groups,
+        "groupOrder": [group["id"] for group in groups],
         "palette": OKABE_ITO,
     }
     payload_json = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
@@ -255,6 +258,11 @@ def render_interactive_section(chart):
         f'<button type="button" data-interactive-button="{esc(item["id"])}">{esc(item["label"])}</button>'
         for item in chart.get("local_subtests", [])
     )
+    group_buttons = "".join(
+        f'<button type="button" data-interactive-group="{esc(group["id"])}">{esc(group["label"])}</button>'
+        for group in groups
+    )
+    group_controls = f'<div class="stream-tabs stream-group-tabs" role="tablist" aria-label="Comparison groups">{group_buttons}</div>' if groups else ""
     return f"""
       <section class="chart stream-card" data-interactive-chart>
         <div class="chart-head">
@@ -262,8 +270,11 @@ def render_interactive_section(chart):
             <h2>{esc(title)}</h2>
             <p>{esc(intro)}</p>
           </div>
-          <div class="stream-tabs" role="tablist" aria-label="{esc(aria)}">
-            {buttons}
+          <div class="stream-tab-stack">
+            {group_controls}
+            <div class="stream-tabs" role="tablist" aria-label="{esc(aria)}">
+              {buttons}
+            </div>
           </div>
         </div>
         <div class="stream-panel">
@@ -355,6 +366,10 @@ def stream_interaction_script():
   roots.forEach((root) => {
     const data = JSON.parse(root.querySelector('[data-interactive-json]').textContent);
     const buttons = Array.from(root.querySelectorAll('[data-interactive-button]'));
+    const groupButtons = Array.from(root.querySelectorAll('[data-interactive-group]'));
+    const groupsById = Object.fromEntries((data.groups || []).map((group) => [group.id, group]));
+    let activeGroup = data.groupOrder?.[0] || null;
+    let activeMetric = data.order[0];
     const axis = root.querySelector('[data-interactive-axis]');
     const bars = root.querySelector('[data-interactive-bars]');
     const title = root.querySelector('[data-interactive-title]');
@@ -363,10 +378,12 @@ def stream_interaction_script():
     const colorFor = (entry, index) => entry.series.includes('9470C') ? '#0072B2' : data.palette[(index + 1) % data.palette.length];
 
     function render(id) {
+      activeMetric = id;
       const subtest = data.subtests[id];
       const decimals = Number.isInteger(subtest.decimals) ? subtest.decimals : 0;
-    const notation = subtest.notation || 'standard';
-    const max = niceMax(Math.max(...subtest.entries.map((entry) => entry.value)));
+      const notation = subtest.notation || 'standard';
+      const entries = activeGroup ? subtest.entries.filter((entry) => (entry.group || 'local_hbm') === activeGroup) : subtest.entries;
+      const max = niceMax(Math.max(...entries.map((entry) => entry.value)));
       const ticks = [0, 0.25, 0.5, 0.75, 1].map((ratio) => Math.round(max * ratio));
 
       buttons.forEach((button) => {
@@ -374,12 +391,17 @@ def stream_interaction_script():
         button.classList.toggle('is-active', active);
         button.setAttribute('aria-selected', active ? 'true' : 'false');
       });
+      groupButtons.forEach((button) => {
+        const active = button.dataset.interactiveGroup === activeGroup;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
 
-      title.textContent = `${subtest.label} (${subtest.unit})`;
+      title.textContent = activeGroup ? `${subtest.label} / ${groupsById[activeGroup]?.label || activeGroup} (${subtest.unit})` : `${subtest.label} (${subtest.unit})`;
       formula.textContent = subtest.formula;
-      note.textContent = subtest.note;
+      note.textContent = activeGroup ? (groupsById[activeGroup]?.note || subtest.note) : subtest.note;
       axis.innerHTML = ticks.map((tick) => `<span style="left:${(tick / max) * 100}%">${formatValue(tick, decimals, notation)}</span>`).join('');
-      bars.innerHTML = subtest.entries.map((entry, index) => {
+      bars.innerHTML = entries.map((entry, index) => {
         const width = Math.max(1.5, (entry.value / max) * 100);
         const color = colorFor(entry, index);
         const own = entry.series.includes('9470C') ? ' is-own' : '';
@@ -396,6 +418,7 @@ def stream_interaction_script():
     }
 
     buttons.forEach((button) => button.addEventListener('click', () => render(button.dataset.interactiveButton)));
+    groupButtons.forEach((button) => button.addEventListener('click', () => { activeGroup = button.dataset.interactiveGroup; render(activeMetric); }));
     render(data.order[0]);
   });
 })();
@@ -829,6 +852,11 @@ def render_html(payload):
       justify-content: space-between;
       gap: 18px;
     }}
+    .stream-tab-stack {{
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+    }}
     .stream-tabs {{
       display: inline-flex;
       flex-wrap: wrap;
@@ -1037,6 +1065,10 @@ def render_html(payload):
       .chart-head {{
         display: block;
       }}
+      .stream-tab-stack {{
+        justify-items: stretch;
+        gap: 7px;
+      }}
       .stream-tabs {{
         display: flex;
         flex-wrap: nowrap;
@@ -1045,6 +1077,9 @@ def render_html(payload):
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
+      }}
+      .stream-tab-stack .stream-tabs {{
+        margin-top: 0;
       }}
       .stream-tabs button {{
         flex: 0 0 auto;
