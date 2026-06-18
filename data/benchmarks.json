@@ -2740,6 +2740,98 @@
           "formula": "transformer NLP pipeline; tokens/s"
         }
       ]
+    },
+    {
+      "id": "blender_cpu",
+      "title": "Blender 4.5.0 渲染性能对比 (单路 Xeon Max = 1.0)",
+      "subtitle": "Classroom、Fishy Cat 与 Pabellon Barcelona 场景渲染速度，数值越高越好",
+      "unit": "相对算力倍数",
+      "data": [
+        {
+          "label": "Classroom",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 91.72,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Fishy Cat",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 44.38,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Pabellon Barcelona",
+          "value": 1.0,
+          "series": "Xeon Max 9470C | 52C/104T",
+          "raw_value": 109.56,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Classroom",
+          "value": 0.71,
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "raw_value": 129.5,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Fishy Cat",
+          "value": 0.68,
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "raw_value": 65.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Pabellon Barcelona",
+          "value": 0.74,
+          "series": "Ryzen 9 9950X | 16C/32T consumer",
+          "raw_value": 148.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Classroom",
+          "value": 0.66,
+          "series": "Core Ultra 9 285K | 24C consumer",
+          "raw_value": 138.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Fishy Cat",
+          "value": 0.6,
+          "series": "Core Ultra 9 285K | 24C consumer",
+          "raw_value": 74.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Pabellon Barcelona",
+          "value": 0.66,
+          "series": "Core Ultra 9 285K | 24C consumer",
+          "raw_value": 165.0,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Classroom",
+          "value": 3.58,
+          "series": "EPYC 9755 | 128C/256T server",
+          "raw_value": 25.6,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Fishy Cat",
+          "value": 3.34,
+          "series": "EPYC 9755 | 128C/256T server",
+          "raw_value": 13.3,
+          "raw_unit": "s"
+        },
+        {
+          "label": "Pabellon Barcelona",
+          "value": 3.52,
+          "series": "EPYC 9755 | 128C/256T server",
+          "raw_value": 31.1,
+          "raw_unit": "s"
+        }
+      ]
     }
   ]
 }
